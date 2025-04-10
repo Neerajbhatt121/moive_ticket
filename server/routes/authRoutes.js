@@ -1,12 +1,11 @@
 import express from "express";
 import jwt from 'jsonwebtoken';
 import passport from "passport";
-import { registerController } from "../controllers/authController.js";
+import { loginController, registerController } from "../controllers/authController.js";
 
 const router = express.Router();
 
-// Register || Post
-router.post("/register", registerController);
+
 
 router.get(
   "/google",
@@ -37,5 +36,13 @@ router.get(
     });
   }
 );
+
+
+// Register || Post
+router.post("/register", registerController);
+
+// Login || Post
+router.post("/login", loginController)
+
 
 export default router;
