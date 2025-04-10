@@ -1,5 +1,4 @@
-import { JsonWebTokenError } from "jsonwebtoken";
-import userSchema from "../modal/User"
+
 
 
 export const registerController = (req, res) => {

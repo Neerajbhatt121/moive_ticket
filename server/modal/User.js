@@ -23,13 +23,18 @@ const userSchema = mongoose.Schema({
     }, 
 
     provider: {
+        type:String,
         enum: ["local", "google"],
         default: "local"
     },
 
     profilePic: {
         type: String
-    }
+    },
+    token: {
+        type: String,
+        default: null,
+    },
 });
 
 export default mongoose.model("user", userSchema);
