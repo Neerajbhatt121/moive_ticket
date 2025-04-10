@@ -35,6 +35,10 @@ const userSchema = mongoose.Schema({
         type: String,
         default: null,
     },
+    role: {
+        type: Number,
+        default: 0
+    }
 });
 
 export default mongoose.model("user", userSchema);
