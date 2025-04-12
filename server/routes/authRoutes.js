@@ -1,7 +1,8 @@
 import express from "express";
 import jwt from 'jsonwebtoken';
 import passport from "passport";
-import { loginController, registerController } from "../controllers/authController.js";
+import { loginController, registerController, testController } from "../controllers/authController.js";
+import { requireSignIn } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -44,5 +45,7 @@ router.post("/register", registerController);
 // Login || Post
 router.post("/login", loginController)
 
+// Test Route
+router.get("/test", requireSignIn, testController)
 
 export default router;

@@ -89,9 +89,11 @@ export const loginController = async (req, res) => {
     }
 
     // token Generation
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign(
+      { _id: user._id }, 
+        process.env.JWT_SECRET,
+      { expiresIn: "7d",}
+    );
     return res.status(200).send({
       success: true,
       message: "login successfully",
@@ -109,4 +111,9 @@ export const loginController = async (req, res) => {
       error,
     });
   }
+};
+
+// Testing protected route
+export const testController = async (req, res) => {
+  res.send("protected routes");
 };

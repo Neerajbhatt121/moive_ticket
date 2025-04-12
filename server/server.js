@@ -37,7 +37,7 @@ app.get("/", (req,res) => {
 })
 
 app.get("/google", (req, res) => {
-    res.send(`<a href="/auth/google">Login with Google</a>`);
+    res.send(`<a href="/api/v1/auth/google">Login with Google</a>`);
   });
 
 const port = process.env.PORT || 8080

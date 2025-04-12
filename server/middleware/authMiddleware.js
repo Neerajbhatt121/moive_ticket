@@ -3,17 +3,25 @@ import userModal from '../modal/User.js';
 
 export const requireSignIn = (req, res, next) => {
   try {
-    if (!req.headers.authorization) {
-      return res.send("please login to acces the page");
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).send("Token missing or invalid format");
     }
-    const decode = jwt.verify(
-        req.headers.authorization,
-        process.env.JWT_SECRET
-    )
-    req.user = decode;
+
+    const token = authHeader.split(" ")[1];
+    console.log("Token received:", token);
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded token:", decoded);
+
+    req.user = decoded;
     next();
   } catch (error) {
     console.log("error while checking the error", error);
+    return res.status(404).send({
+      success: false,
+      message: "Invalid token"
+    })
   }
 };
 
