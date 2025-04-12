@@ -1,5 +1,5 @@
 import express from 'express';
-import { createMoive } from '../controllers/moiveController.js';
+import { createMoive, GetAllMoive } from '../controllers/moiveController.js';
 import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 import upload from '../middleware/multer.js';
 
@@ -9,6 +9,6 @@ const router = express.Router()
 router.post("/createmoive",requireSignIn, isAdmin, upload.single('posterURL') ,createMoive);
 
 // Getting all moives
-// router.get('/getAllmoives', )
+router.get('/getAllmoives', GetAllMoive);
 
 export default router;
