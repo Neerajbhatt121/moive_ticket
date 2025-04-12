@@ -30,15 +30,17 @@ export const requireSignIn = (req, res, next) => {
 export const isAdmin = async (req,res, next) => {
     try {
         const user = await userModal.findById(req.user._id)
-        if(user.role !== process.env.ADMIN_ROLE){
-            return res.status(401).send({
-                success: false,
-                message: "Unauthorised Access"
-            })
+        if(user.role == process.env.ADMIN_ROLE){
+          console.log("here")
+          return next();
         } else {
-            return next();
+            return res.status(401).send({
+              message1: process.env.ADMIN_ROLE,
+              success: false,
+              message: "Unauthorised Access"
+          })
         }
     } catch (error) {
-        console.log(error)
+        console.log("Catch me error h",error)
     }
 }
