@@ -21,4 +21,4 @@ const moiveSchema = new mongoose.Schema({
     }
 },{timestamps: true});
 
-export default mongoose.model("moive", moiveSchema);
+export default mongoose.model("movie", moiveSchema);

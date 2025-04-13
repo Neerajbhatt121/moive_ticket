@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 
 const showInstance = new mongoose.Schema({
-    moive: {
-        type: String,
-        ref: 'moive'
+    movie: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'movie',
+        required: true
     },
     date:{
         type: Date,
-        requrired: true
+        required: true
     },
     slotTime: {
         type: String,
@@ -19,7 +20,7 @@ const showInstance = new mongoose.Schema({
         default: 50
     },
     bookedSeats: {
-        type: String,
+        type: [String],
     },
     createdAt: {
         type: Date,

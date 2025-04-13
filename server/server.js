@@ -5,6 +5,7 @@ import express from "express";
 import session from "express-session";
 import morgan from 'morgan';
 import passport from 'passport';
+import instanceRoutes from '../server/routes/instanceRoutes.js';
 import moiveRoutes from "../server/routes/moiveRoutes.js";
 import { connectDB } from './config/db.js';
 import "./config/passport.js";
@@ -31,6 +32,7 @@ app.use(passport.session())     // to maintain the session
 
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/moive', moiveRoutes)
+app.use('/api/v1/instance', instanceRoutes)
 
 app.get("/", (req,res) => {
     res.send({

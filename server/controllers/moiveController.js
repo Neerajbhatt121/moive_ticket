@@ -1,4 +1,4 @@
-import Moive from '../modal/Moive.js';
+import Movie from '../modal/Moive.js';
 
 
 // POST -- Creating the movie
@@ -7,7 +7,7 @@ export const createMoive = async (req,res) => {
         const {name, description, duration, genre} = req.body;
         const posterURL = req.file.path;
 
-        const newMovie = new Moive({
+        const newMovie = new Movie({
             name,
             description,
             duration,
@@ -16,7 +16,7 @@ export const createMoive = async (req,res) => {
         });
 
         await newMovie.save();
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Movie created",
             movie: newMovie,
@@ -24,7 +24,7 @@ export const createMoive = async (req,res) => {
 
     } catch (error) {
         console.log("something wrong while adding moive", error)
-        res.status(500).send({
+        return res.status(500).send({
             success: false,
             message: "Can't upload moive"
         })
@@ -35,19 +35,19 @@ export const createMoive = async (req,res) => {
 // Get --  Getting the movie
 export const GetAllMoive = async (req,res) => {
     try {
-        const movie = await Moive.find({})
+        const movie = await Movie.find({})
         if(!movie) res.status(500).send({
             success: false,
             message: "List is empty"
         })
-        res.status(200).send({
+        return res.status(200).send({
             success: true,
             message: "movie getted",
             movie
         })
     } catch (error) {
         console.log("error while getting the movies", error)
-        res.status(500).send({
+        return res.status(500).send({
             success: false,
             message: "Error while getting the movies"
         })
