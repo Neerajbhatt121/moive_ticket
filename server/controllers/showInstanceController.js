@@ -48,3 +48,39 @@ export const GetInstanceForDay = async (req,res) => {
         })
     }
 }
+
+// GET -- Get the instance for the particular moive within i upcoming 7 days
+export const GetInstanceForMoive = async (req,res) => {
+    try {
+        const {movieId} = req.params;
+        const today = new Date;
+        const next7Day = new Date;
+        next7Day.setDate(today.getDate() + 7)
+
+        const instance = await ShowInstance.find({
+            movie: movieId,
+            date: {$gte: today, $lte: next7Day}
+        })
+
+        if(!instance){
+            console.log("no moive instance found")
+            return res.status(200).send({
+                success: true,
+                message: "No instance found"
+            })
+        }
+        console.log(instance, movieId, req.params)
+        return res.status(200).send({
+            success: true,
+            message: "movie instance founded",
+            instance
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success: false,
+            message: "Error while finding the instance for the particular moive for next 7 days"
+        })
+    }
+}

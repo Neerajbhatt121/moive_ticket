@@ -53,3 +53,26 @@ export const GetAllMoive = async (req,res) => {
         })
     }
 }
+
+// GET -- Getting movie by id
+export const GetAllMoiveById = async (req,res) => {
+    try {
+        const {movieId} = req.params;
+        const movie = await Movie.findById({_id: movieId})
+        if(!movie) res.status(500).send({
+            success: false,
+            message: "not that movie exist"
+        })
+        return res.status(200).send({
+            success: true,
+            message: "movie getted",
+            movie
+        })
+    } catch (error) {
+        console.log("error while getting the movie", error)
+        return res.status(500).send({
+            success: false,
+            message: "Error while getting the movie"
+        })
+    }
+}
