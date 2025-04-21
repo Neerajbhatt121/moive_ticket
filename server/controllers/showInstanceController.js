@@ -130,19 +130,38 @@ export const PostBookSeat = async (req, res) => {
             })
         }
 
-        const seat = show.bookedSeats.find(seat => seat.seatNumber === seatNumber)
-        if (!seat) {
-            return res.status(404).json({ success: false, message: "Seat not found" });
-        }
-        console.log("after !seat")
-        if (seat.isBooked) {
-            return res.status(400).json({ success: false, message: "Seat already booked" });
-        }
+        // const seat = show.bookedSeats.find(seat => seat.seatNumber === seatNumber)
+        // if (!seat) {
+        //     return res.status(404).json({ success: false, message: "Seat not found" });
+        // }
+        // console.log("after !seat")
+        // if (seat.isBooked) {
+        //     return res.status(400).json({ success: false, message: "Seat already booked" });
+        // }
 
-        seat.seatNumber = seatNumber
-        seat.isBooked = true
-        seat.bookedBy = userId
-        seat.bookedAt = new Date()
+        const notFoundSeats = []
+        const alreadyBookedSeat = []
+
+        seatNumber.forEach(seatNumber => {
+            const seat = show.bookedSeats.find(seat => seat.seatNumber === seatNumber)
+            if (!seat) {
+                notFoundSeats.push(seatNumber)
+            } else if(seat.isBooked){
+                alreadyBookedSeat.push(seatNumber)
+            } else {
+                seat.isBooked = true;
+                seat.bookedBy = userId;
+                seat.bookedAt = new Date();
+            }
+        })
+
+        if (notFoundSeats.length > 0) {
+            return res.status(404).json({ success: false, message: `Seats not found here: ${notFoundSeats.join(', ')}` });
+          }
+      
+          if (alreadyBookedSeat.length > 0) {
+            return res.status(400).json({ success: false, message: `Seats already booked here: ${alreadyBookedSeat.join(', ')}` });
+          }
 
         await show.save();
         return res.status(200).send({
