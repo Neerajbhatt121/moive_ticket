@@ -14,6 +14,10 @@ const moiveSchema = new mongoose.Schema({
     posterURL: {
        type: String
     },
+    price: {
+        type: Number,
+        default: 500,
+    },
     genre: [String],
     createdAt: {
         type: Date,

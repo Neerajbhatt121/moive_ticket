@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+export const seatSchema = new mongoose.Schema({
+    seatNumber: String,     // Seat Number like that :- A1, A2, B1
+    isBooked: { type: Boolean, default: false },
+    bookedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    bookedAt: { type: Date, default: null }
+  });
+
+
 const showInstance = new mongoose.Schema({
     movie: {
         type: mongoose.Schema.Types.ObjectId,
@@ -20,7 +28,7 @@ const showInstance = new mongoose.Schema({
         default: 50
     },
     bookedSeats: {
-        type: [String],
+        type: [seatSchema],
     },
     createdAt: {
         type: Date,

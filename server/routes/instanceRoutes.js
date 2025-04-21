@@ -1,5 +1,5 @@
 import express from 'express';
-import { CreateShowInstances, GetInstanceForDay, GetInstanceForMoive } from '../controllers/showInstanceController.js';
+import { CreateShowInstances, GetInstanceForDay, GetInstanceForMoive, PostBookSeat } from '../controllers/showInstanceController.js';
 import { isAdmin, requireSignIn } from '../middleware/authMiddleware.js';
 
 const router = express.Router()
@@ -12,5 +12,9 @@ router.get("/getInstance",  GetInstanceForDay);
 
 // GET -- Getting instance of particular movie for upcoming 7 days
 router.get("/getAllInstanceOfmovie/:movieId", GetInstanceForMoive);
+
+
+router.post("/bookMovie", PostBookSeat);
+
 
 export default router;
