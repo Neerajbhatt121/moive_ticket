@@ -30,8 +30,12 @@ const showInstance = new mongoose.Schema({
     bookedSeats: {
         type: [seatSchema],
     },
+    price:{
+        type: Number,
+        default: 500
+    },
     createdAt: {
-        type: Date,
+        type: Date, 
         default: Date.now
     }
 },{timestamps: true})

@@ -1,4 +1,5 @@
 import ShowInstance from "../modal/ShowInstance.js";
+import Ticket from "../modal/Ticket.js";
 
 
 // POST --  Create Show Instances
@@ -163,7 +164,23 @@ export const PostBookSeat = async (req, res) => {
             return res.status(400).json({ success: false, message: `Seats already booked here: ${alreadyBookedSeat.join(', ')}` });
           }
 
+        
+
+        const ticketResult = await ticketGenerated({
+            userId,
+            showId,
+            seatNumber,
+            price : show.price * seatNumber.length
+        })
+        if (!ticketResult.success) {
+            return res.status(500).send({
+                success: false,
+                message: "Seat booked but ticket creation failed"
+            });
+        }
+
         await show.save();
+
         return res.status(200).send({
             success: true,
             message: "Seat booked successfully",
@@ -175,5 +192,32 @@ export const PostBookSeat = async (req, res) => {
             success: false,
             message: "error here"
         })
+    }
+}
+
+
+// POST -- Generating the Ticket
+export const ticketGenerated = async ({ userId, showId, seatNumber, price }) => {
+    try {
+        console.log()
+        if(seatNumber.length < 0) 
+            return res.status(500).send({
+                success:false,
+                message: "seats are empty"
+        })
+
+        const newTicket = new Ticket({
+            user: userId,
+            show: showId,
+            seatNumbers: seatNumber,
+            price,
+        });
+
+        await newTicket.save();
+        console.log("ticket generated logs")
+        return { success: true, ticket: newTicket };
+    } catch (error) {
+        console.log("Ticket creation failed:", error);
+        return { success: false, message: "Ticket creation failed"};
     }
 }

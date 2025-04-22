@@ -10,7 +10,14 @@ const TicketSchema = mongoose.Schema({
     seatNumbers: {
         type: [String]
     },
-    bookedAt: new Date()
+    price:{
+        type: Number,
+        required: true
+    },
+    bookedAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-export default mongoose.Schema("Ticket", TicketSchema)
+export default mongoose.model("Ticket", TicketSchema)
