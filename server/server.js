@@ -5,6 +5,7 @@ import express from "express";
 import session from "express-session";
 import morgan from 'morgan';
 import passport from 'passport';
+import path from 'path';
 import instanceRoutes from '../server/routes/instanceRoutes.js';
 import moiveRoutes from "../server/routes/moiveRoutes.js";
 import { connectDB } from './config/db.js';
@@ -26,6 +27,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
+
+app.use('/tickets', express.static(path.join(process.cwd(), 'tickets')));
 
 app.use(passport.initialize())  // for the initalize 
 app.use(passport.session())     // to maintain the session

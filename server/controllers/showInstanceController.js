@@ -1,5 +1,8 @@
+import movie from "../modal/Moive.js";
 import ShowInstance from "../modal/ShowInstance.js";
 import Ticket from "../modal/Ticket.js";
+import user from "../modal/User.js";
+import { InvoiceGenerater } from "../service/Invoice.js";
 
 
 // POST --  Create Show Instances
@@ -122,7 +125,15 @@ export const PostBookSeat = async (req, res) => {
     try {
         const { showId, seatNumber, userId } = req.body; 
         console.log(req.body)
+        const User = await user.findById(userId)
+        if (!User) {
+            return res.status(404).send({
+                success: false,
+                message: "User not found"
+            });
+        }
         const show = await ShowInstance.findById(showId)
+        const moivename = await movie.findById(show.movie)
         if(!show) {
             return res.status(404)
             .json({
@@ -130,15 +141,6 @@ export const PostBookSeat = async (req, res) => {
                 message: "Show is not found"
             })
         }
-
-        // const seat = show.bookedSeats.find(seat => seat.seatNumber === seatNumber)
-        // if (!seat) {
-        //     return res.status(404).json({ success: false, message: "Seat not found" });
-        // }
-        // console.log("after !seat")
-        // if (seat.isBooked) {
-        //     return res.status(400).json({ success: false, message: "Seat already booked" });
-        // }
 
         const notFoundSeats = []
         const alreadyBookedSeat = []
@@ -164,14 +166,13 @@ export const PostBookSeat = async (req, res) => {
             return res.status(400).json({ success: false, message: `Seats already booked here: ${alreadyBookedSeat.join(', ')}` });
           }
 
-        
-
         const ticketResult = await ticketGenerated({
             userId,
             showId,
             seatNumber,
             price : show.price * seatNumber.length
         })
+        console.log("ticket -->>", ticketResult)
         if (!ticketResult.success) {
             return res.status(500).send({
                 success: false,
@@ -179,18 +180,31 @@ export const PostBookSeat = async (req, res) => {
             });
         }
 
+        const invoiceGen = await InvoiceGenerater({
+            bookingId: ticketResult.ticket._id,
+            username: User.name,
+            email: User.email,
+            moviename: moivename.name,
+            date: show.date.toDateString(),
+            slotTime: show.slotTime,
+            seatNumbers: seatNumber,
+            totalAmount: show.price * seatNumber.length
+        })
+        
         await show.save();
-
+        console.log("invoiceGen", invoiceGen)
         return res.status(200).send({
             success: true,
             message: "Seat booked successfully",
+            invoiceUrl: invoiceGen.publicUrl,
             show
         })
 
     } catch (error) {
+        console.log(error)
         return res.status(500).send({
             success: false,
-            message: "error here"
+            message: "error here in catch"
         })
     }
 }
