@@ -3,6 +3,7 @@ import ShowInstance from "../modal/ShowInstance.js";
 import Ticket from "../modal/Ticket.js";
 import user from "../modal/User.js";
 import { InvoiceGenerater } from "../service/Invoice.js";
+import sendMail from "../service/sendmail.js";
 
 
 // POST --  Create Show Instances
@@ -190,6 +191,25 @@ export const PostBookSeat = async (req, res) => {
             seatNumbers: seatNumber,
             totalAmount: show.price * seatNumber.length
         })
+
+            console.log("hereeeee",invoiceGen)
+        const mailed = await sendMail(req, res,{
+            email: User.email,
+            moviename: moivename.name,
+            seatNumbers: seatNumber,
+            date: show.date.toDateString(),
+            slotTime: show.slotTime,
+            totalAmount: show.price * seatNumber.length,
+            filePath: invoiceGen.filePath,
+            fileName: invoiceGen.fileName
+        })
+
+        // if(!mailed.success){
+        //     return res.status(200).send({
+        //         success: false,
+        //         message: "mailed can't sended"
+        //     })   
+        // }
         
         await show.save();
         console.log("invoiceGen", invoiceGen)
