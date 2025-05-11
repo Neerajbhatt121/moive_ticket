@@ -1,5 +1,5 @@
 import axios from "axios"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Layout from "../../Components/Layout"
 
@@ -30,7 +30,8 @@ const MoiveDetails = () => {
 
   return (
     <Layout title={"movie details"}>
-      <div className='w-full overflow-x-hidden relative'>
+      { resMov && (
+        <div className='w-full overflow-x-hidden relative'>
         <div
           className='w-full h-[30rem]'
           style={{
@@ -38,18 +39,25 @@ const MoiveDetails = () => {
             backgroundSize: "cover",
           }}
         >
-          <div className='w-full h-[30rem] flex px-15 justify-around items-center'>
+          <div className='w-full h-[30rem] flex px-15 justify-center items-center'>
                 <div
-                    className="w-[18rem] min-w-[10rem] h-[80%] z-10">
+                    className="w-[16rem] min-w-[10rem] h-[90%] z-10">
                     <img 
                         src={resMov.posterURL} alt="#"
-                        className="w-full h-full object-cover overflow-hidden rounded-3xl "
+                        className="w-full h-full object-cover overflow-hidden rounded-xl "
                     />
                 </div>
-                <div className="w-[40rem] h-[100%] bg-amber-900 z-20">
-                    <div>
-
-                    </div>
+                <div className="w-[50rem] h-[100%] bg-transparent z-20 p-10 flex flex-col justify-evenly">
+                    <div className="text-4xl text-white font-medium font-sans">{resMov.name}</div>
+                    <br />
+                    <div className="text-1xl text-white font-extralight">Type: {resMov.genre}</div>
+                    <div className="text-1xl text-white font-normal">Description: {resMov.description}</div>
+                    <div className="text-1xl text-white font-normal">Languages: {resMov.language ? (resMov.language) : ("Hindi, English, Telgue, Russian")}</div>
+                    <br />
+                    <div className="text-1xl text-white font-normal">Per Seat: ${resMov.price}</div>
+                    <button 
+                      className="w-60 h-12 bg-red-400 rounded text-white font-light ">
+                      Book Now</button>
                 </div>
           </div>
         </div>
@@ -57,10 +65,11 @@ const MoiveDetails = () => {
           className='w-full h-[30rem] absolute left-0 top-0'
           style={{
             backgroundImage:
-              "linear-gradient(to right, black,black,transparent,black,black)",
+              "linear-gradient(to right, black,black,black,transparent,black,black,black)",
           }}
         ></div>
       </div>
+      )}
     </Layout>
   )
 }
