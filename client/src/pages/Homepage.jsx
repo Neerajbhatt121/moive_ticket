@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Header from "../Components/Header";
+import { useNavigate } from "react-router-dom";
 import HeroSection from "../Components/HeroSection";
+import Layout from "../Components/Layout";
 
 const Homepage = () => {
   const [movie, setMovie] = useState([]);
+  const navigate = useNavigate()
 
   const getMoive = async () => {
     try {
@@ -23,31 +25,48 @@ const Homepage = () => {
     getMoive();
   }, []);
 
+
   useEffect(() => {
     console.log("Updated movie list:", movie);
   }, [movie]);
 
   return (
-    <div className="w-screen h-screen overflow-x-hidden">
-      <Header />
+    <Layout title={"All movie and shows"}>
+      <div className="w-full h-full overflow-x-hidden">
       <HeroSection />
 
-      <div className="w-screen h-8 mt-2 [&>*]:rounded-2xl [&>*]:w-[7rem] [&>*]:ml-4 [&>*]:font-sans [&>*]:text-center [&>*]:pt-1 pl-10 flex justify-items-start">
+      <div className="w-full h-8 mt-8 [&>*]:rounded-3xl [&>*]:w-[7rem]  [&>*]:ml-8 [&>*]:font-sans [&>*]:text-center [&>*]:pt-1 pl-10 flex justify-items-start">
         <div className="bg-wheat text-black bg-gray-200">Most Watch</div>
         <div className="bg-black text-white">High Rated</div>
         <div className="bg-wheat text-black bg-gray-200">Latest</div>
       </div>
 
       {movie.length > 0 && (
-        <div className="w-screen" id="main-container">
-          <div>
-            <div className="w-[20rem] h-[25rem] bg-red-300 ">
-              <img src={movie[1].posterURL} alt="#" srcset="" />
-            </div>
+        <div className="w-screen mt-30 " id="main-container">
+          <div className="w-[100%]  flex flex-wrap justify-evenly ">
+              {movie.map((m,i) => (
+                <div
+                  key={i}
+                  onClick={() => navigate(`/moiveDetails/${m._id}`)}
+                  className="w-[25rem] h-[6rem] bg-gray-100 flex ">
+                    <img 
+                        className="w-[5rem] h-[5rem] rounded-2xl m-2"
+                        src={m.posterURL} alt="#" srcSet=""  
+                    />
+
+                    <div className="w-[100%] bg-gray-100 flex flex-col p-2 justify-around">
+                        <div className="font-sans font-bold text-2xl">{m.name}</div>
+                        <div className="font-sans font-light text-1xl">Type: {m.genre}</div>
+                        <div className="font-sans font-light text-1xl">Rating: ⭐⭐⭐⭐⭐</div>
+                    </div>                                    
+
+                </div>
+              ))}
           </div>
         </div>
       )}
     </div>
+    </Layout>
   );
 };
 
