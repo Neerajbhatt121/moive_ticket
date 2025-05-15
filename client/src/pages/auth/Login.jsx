@@ -1,8 +1,25 @@
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/Auth.jsx";
 
 const Login = () => {
+  const {login} = useAuth()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    console.log("login call")
+      const result = await login({email, password});
+      if(result.success){
+        console.log("success here")
+        navigate('/')
+      } else {
+        alert("login failed")
+      }
+  }
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="w-110 h-[75%] bg-[#F5F4F4] flex flex-col justify-center items-center p-8 py-15 rounded-2xl">
@@ -10,17 +27,24 @@ const Login = () => {
            Login
         </h1>
         <form
-          action=""
+          onSubmit={(e) => {
+            e.preventDefault()
+            handleLogin();
+          }}
           className="w-110 h-[100%] flex flex-col justify-evenly items-center"
         >
           
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Eg:- example@gmail.com"
             className="w-90 h-10 bg-white text-gray-600 border p-2 border-gray-400 rounded-2xl drop-shadow-2xl focus:outline-none"
           />
           <input
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Eg:- ********"
             className="w-90 h-10 bg-white text-gray-600 border p-2 border-gray-400 rounded-2xl drop-shadow-2xl focus:outline-none"
           />
@@ -30,7 +54,9 @@ const Login = () => {
               className="w-[40%] h-full bg-gray-200 rounded-3xl text-black font-bold">
               Signup
             </button>
-            <button className="w-[40%] h-full bg-purple-600 rounded-3xl text-white font-bold">
+            <button 
+                type="submit"
+                className="w-[40%] h-full bg-purple-600 rounded-3xl text-white font-bold">
               Login
             </button>
           </div>
