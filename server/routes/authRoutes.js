@@ -18,23 +18,32 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/",
+    failureRedirect: "/login",
     session: false,
   }),
 
   (req, res) => {
     const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "7d"
     });
-    res.json({
-      message: "Login successful",
-      token: token,
-      user: {
-        name: req.user.name,
-        email: req.user.email,
-        profilePic: req.user.profilePic,
-      },
-    });
+
+    const user = req.user
+   // const token = user.token
+    console.log("HERRRRRRRRRRRR", user)
+    
+    const redirectURL = `http://localhost:5173/oauth-success?token=${token}&name=${encodeURIComponent(user.name)}&email=${user.email}&profilePic=${user.profilePic}`;
+
+    return res.redirect(redirectURL)
+
+    // res.json({
+    //   message: "Login successful",
+    //   token: token,
+    //   user: {
+    //     name: req.user.name,
+    //     email: req.user.email,
+    //     profilePic: req.user.profilePic,
+    //   },
+    // });
   }
 );
 

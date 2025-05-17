@@ -36,6 +36,11 @@ passport.use(
         );
 
         newUser.token = token;
+        if (!user || !token) {
+          return res.status(400).send("User or token missing");
+        }
+
+        console.log("server token", token)
 
         return done(null, newUser);
       } catch (error) {
