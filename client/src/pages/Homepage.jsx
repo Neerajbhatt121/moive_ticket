@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import HeroSection from "../Components/HeroSection";
 import Layout from "../Components/Layout";
@@ -16,6 +17,7 @@ const Homepage = () => {
       setMovie(res.data.movie);
       console.log(res.data.movie);
       console.log(movie);
+      toast.success("toasted")
     } catch (error) {
       console.log(error);
     }
@@ -32,6 +34,7 @@ const Homepage = () => {
 
   return (
     <Layout title={"All movie and shows"}>
+      <div><Toaster/></div>
       <div className="w-full h-full overflow-x-hidden">
       <HeroSection />
 

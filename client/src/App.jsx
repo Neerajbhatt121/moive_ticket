@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
+import AdminDashboard from './pages/Admin/AdminDashboard'
 import Login from './pages/auth/Login'
 import OauthSuccess from './pages/auth/OauthSuccess'
 import Signup from './pages/auth/Signup'
 import Homepage from './pages/Homepage'
 import MoiveDetails from './pages/user/MoiveDetails'
+import SeatBooking from './pages/user/SeatBooking'
 
 const App = () => {
   return (
@@ -14,7 +16,9 @@ const App = () => {
           <Route path='/Signup' element={<Signup/>}/>
           <Route path='/Login' element={<Login/>}/>
           <Route path='/moiveDetails/:movId' element={<MoiveDetails/>}/>
+          <Route path='/bokking/:movId' element={<SeatBooking/>}/>
           <Route path='/oauth-success' element={<OauthSuccess/>}/>
+          <Route path='/dashboard' element={<AdminDashboard/>}/>
           
         </Routes>
     </BrowserRouter>

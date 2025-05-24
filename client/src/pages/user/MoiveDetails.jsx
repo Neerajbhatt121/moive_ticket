@@ -1,12 +1,12 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Layout from "../../Components/Layout"
 
 const MoiveDetails = () => {
   const [resMov, setResMov] = useState()
-
   const { movId } = useParams()
+  const navigate = useNavigate()
 
   const getDetails = async () => {
     console.log("Id here", movId)
@@ -56,6 +56,7 @@ const MoiveDetails = () => {
                     <br />
                     <div className="text-1xl text-white font-normal">Per Seat: ${resMov.price}</div>
                     <button 
+                      onClick={() => navigate(`/bokking/${movId}`)}
                       className="w-60 h-12 bg-red-400 rounded text-white font-light ">
                       Book Now</button>
                 </div>

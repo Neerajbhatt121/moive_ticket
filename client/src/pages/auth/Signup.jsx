@@ -1,36 +1,74 @@
+import axios from "axios";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
 
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate()
+  
+
   const handleSubmit = async () => {
-    
+    if(!name) return (
+      console.log("name required"),
+      toast.error("name requred")
+    )
+    if(!email) return (
+      console.log("email required"),
+      toast.error("name requred")
+    )
+    if(!password) return (
+      console.log("password required"),
+      toast.error("name requred")
+    )
+      const data = await axios.post('http://localhost:5000/api/v1/auth/register', {
+        name, email, password
+      })
+      console.log("register", data)
+      toast.success("Account created sucssfully")
+      navigate('/Login')
+
   }
 
 
-  const navigate = useNavigate();
   return (
     <div className="w-screen h-screen flex justify-center items-center">
+      <div><Toaster/></div>
       <div className="w-110 h-[75%] bg-[#F5F4F4] flex flex-col justify-center items-center p-8 py-15 rounded-2xl">
         <h1 className="text-4xl font-sans font-extrabold text-purple-500">
           Sign Up
         </h1>
         <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit()
+          }}
           action=""
+          type="submit"
           className="w-110 h-[100%] flex flex-col justify-evenly items-center"
         >
           <input
             type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             placeholder="Eg:- Krishna Kumar"
             className="w-90 h-10 bg-white text-gray-600 border p-2 border-gray-400 rounded-2xl drop-shadow-2xl focus:outline-none"
           />
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Eg:- example@gmail.com"
             className="w-90 h-10 bg-white text-gray-600 border p-2 border-gray-400 rounded-2xl drop-shadow-2xl focus:outline-none"
           />
           <input
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Eg:- ********"
             className="w-90 h-10 bg-white text-gray-600 border p-2 border-gray-400 rounded-2xl drop-shadow-2xl focus:outline-none"
           />
@@ -40,7 +78,9 @@ const Signup = () => {
               className="w-[40%] h-full bg-gray-200 rounded-3xl text-black font-bold">
               Login
             </button>
-            <button className="w-[40%] h-full bg-purple-600 rounded-3xl text-white font-bold">
+            <button 
+              type="submit"
+              className="w-[40%] h-full bg-purple-600 rounded-3xl text-white font-bold">
               Signup
             </button>
           </div>

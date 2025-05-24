@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const images = [
   "https://wallpaperaccess.com/full/7965055.jpg",
@@ -14,7 +14,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIdx((currentIdx + 1) % 4);
+      setCurrentIdx((currentIdx + 1) % 3);
       setDirection(1);
     }, 3000);
     return () => clearInterval(interval);
@@ -58,7 +58,7 @@ const HeroSection = () => {
         <AnimatePresence initial={false} mode="wait">
           <motion.img
             key={currentIdx}
-            className="w-[100%] h-[100%] bg-gray-300 object-cover overflow-hidden rounded-2xl ml-10 mr-10"
+            className="w-[100%] h-[100%] bg-gray-300 object-cover overflow-hidden rounded-0xl ml-10 mr-10"
             src={images[currentIdx + 1]}
             custom={direction}
             variants={varients}

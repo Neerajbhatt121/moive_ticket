@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/Auth.jsx";
@@ -10,6 +11,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if(!email) return (
+      console.log("name required"),
+      toast.error("name requred")
+    )
+    if(!password) return (
+      console.log("password required"),
+      toast.error("name requred")
+    )
+
+   // const isAcc = await axios.get('')
+
     console.log("login call")
       const result = await login({email, password});
       if(result.success){
@@ -22,6 +34,7 @@ const Login = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
+      <div><Toaster/></div>
       <div className="w-110 h-[75%] bg-[#F5F4F4] flex flex-col justify-center items-center p-8 py-15 rounded-2xl">
         <h1 className="text-4xl font-sans font-extrabold text-purple-500">
            Login
