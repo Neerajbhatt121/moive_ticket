@@ -23,6 +23,7 @@ const AuthProvider = ({ children }) => {
         user: parseData.user,
         token: parseData.token,
       })
+    //  axios.defaults.headers.common["Authorization"] = auth?.token
     }
   }, [])
 
@@ -50,7 +51,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("movie-auth", JSON.stringify(response.data))
         return response.data
       } else {
-        return {success: false}
+        return { success: false }
       }
     } catch (error) {
       alert("login failed")
@@ -60,7 +61,8 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setAuth({ user: null, token: "" })
-    localStorage.removeItem("moive-auth")
+    localStorage.removeItem("movie-auth")
+    delete axios.defaults.headers.common["Authorization"]
   }
 
   return (

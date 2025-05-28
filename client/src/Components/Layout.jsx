@@ -1,4 +1,3 @@
-import React from 'react'
 import { Helmet } from 'react-helmet'
 import Footer from './Footer'
 import Header from './Header'
@@ -23,7 +22,7 @@ const Layout = ({children,description,keywords,author,title}) => {
 }
 
 Layout.defaultProps = {
-    title: "Kharidari- loot lo",
+    title: "Moive Tickets- loot lo",
     description: "mern stack project",
     keywords: "mern,react,node,mongodb",
     author:"Neeraj"

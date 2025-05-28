@@ -11,9 +11,7 @@ const Homepage = () => {
 
   const getMoive = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/v1/moive/getAllmoives",
-      );
+      const res = await axios.get("/api/v1/moive/getAllmoives");
       setMovie(res.data.movie);
       console.log(res.data.movie);
       console.log(movie);
@@ -51,7 +49,7 @@ const Homepage = () => {
                 <div
                   key={i}
                   onClick={() => navigate(`/moiveDetails/${m._id}`)}
-                  className="w-[25rem] h-[6rem] bg-gray-100 flex ">
+                  className="w-[25rem] h-[6rem] bg-gray-100 flex mb-5">
                     <img 
                         className="w-[5rem] h-[5rem] rounded-2xl m-2"
                         src={m.posterURL} alt="#" srcSet=""  

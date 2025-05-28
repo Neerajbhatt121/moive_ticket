@@ -29,7 +29,7 @@ const Header = () => {
           Register
         </div>
         <div>
-          <img className='w-7 h-7 rounded-full' src={ProfileImage} alt='#' />
+          <img className='w-7 h-7 rounded-full' src={ProfileImage} alt={profileImg} />
         </div>
       </div>
     </div>
