@@ -3,14 +3,22 @@ import Movie from '../modal/Moive.js';
 
 // POST -- Creating the movie
 export const createMoive = async (req,res) => {
+    console.log("Request Body:", JSON.stringify(req.body, null, 2));
     try {
-        const {name, description, duration, genre} = req.body;
-        const posterURL = req.file.path;
+        const {name, description, duration,price, genre} = req.body;
+        if(!req.file){
+            return res.status(101).send({
+                message: "image problem"
+            })
+        }
+        const posterURL = req.file.path || req.file.secure_url;
+
 
         const newMovie = new Movie({
             name,
             description,
             duration,
+            price,
             posterURL,
             genre
         });

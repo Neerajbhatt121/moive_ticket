@@ -4,11 +4,16 @@ import userModal from '../modal/User.js';
 export const requireSignIn = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).send("Token missing or invalid format");
+    console.log("authHeader",authHeader)
+    if (!authHeader ) {  // || !authHeader.startsWith("Bearer ")
+      return res.status(401).send({
+        success: false,
+        message: "Token missing or invalid format"
+      });
     }
 
-    const token = authHeader.split(" ")[1];
+
+    const token = authHeader;   // .split(" ")[1]
     console.log("Token received:", token);
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -34,10 +39,10 @@ export const isAdmin = async (req,res, next) => {
           console.log("here")
           return next();
         } else {
-            return res.status(401).send({
+            return res.status(404).send({
               message1: process.env.ADMIN_ROLE,
               success: false,
-              message: "Unauthorised Access"
+              message: "Unauthorised Access admin"
           })
         }
     } catch (error) {

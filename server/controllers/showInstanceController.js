@@ -35,8 +35,8 @@ export const CreateShowInstances = async (req, res) => {
 // GET -- Get the instance for that particular day
 export const GetInstanceForDay = async (req,res) => {
     try {
-        const {date} = req.body;
-        console.log(date,"khksdkfahd")
+        const {date} = req.params;
+        console.log(req.params,"ppppppppppppppppppp")
         const instance = await ShowInstance.find({date})
         if(!instance ){
             console.log("nahi mila instance")

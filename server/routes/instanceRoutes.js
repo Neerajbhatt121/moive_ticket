@@ -8,7 +8,7 @@ const router = express.Router()
 router.post("/createInstance", requireSignIn, isAdmin, CreateShowInstances);
 
 // GET -- Getting all instance of that day
-router.get("/getInstance",  GetInstanceForDay);
+router.get("/getInstance/:date",  GetInstanceForDay);
 
 // GET -- Getting instance of particular movie for upcoming 7 days
 router.get("/getAllInstanceOfmovie/:movieId", GetInstanceForMoive);
