@@ -13,7 +13,7 @@ export const requireSignIn = (req, res, next) => {
     }
 
 
-    const token = authHeader;   // .split(" ")[1]
+    const token = authHeader;   // .split(" ")[1]  using while postman
     console.log("Token received:", token);
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

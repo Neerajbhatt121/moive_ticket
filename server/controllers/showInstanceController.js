@@ -91,6 +91,40 @@ export const GetInstanceForMoive = async (req,res) => {
     }
 }
 
+export const GetInstanceForMoiveEachDay = async (req,res) => {
+    try {
+        const {movId, date} = req.params;
+        console.log(req.params)
+
+        const instance = await ShowInstance.find({
+            movie: movId,
+            date: date
+        });
+
+        if(!instance || instance.length === 0) {
+            console.log("No movie instance found");
+            return res.status(200).send({
+                success: true,
+                message: "No instance found",
+                instance: []
+            });
+        }
+        console.log(instance, movId, req.params)
+        return res.status(200).send({
+            success: true,
+            message: "movie instance founded",
+            instance
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success: false,
+            message: "Error while finding the instance for the particular moive for next 7 days"
+        })
+    }
+}
+
 // Create 50 seats with seatNumber like A1, A2, ..., E10 (for example)
 const generateSeats = () => {
     const seats = [];
