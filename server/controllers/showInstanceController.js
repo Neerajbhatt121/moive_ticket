@@ -159,16 +159,18 @@ export const GetShowInstanceById = async (req, res) => {
 export const PostBookSeat = async (req, res) => {
     try {
         const { showId, seatNumber, userId } = req.body; 
-        console.log(req.body)
-        const User = await user.findById(userId)
+        console.log("body",req.body)
+        const User = await user.findOne({email: userId})
         if (!User) {
             return res.status(404).send({
                 success: false,
                 message: "User not found"
             });
         }
+        console.log("all things",showId, seatNumber, User._id)
         const show = await ShowInstance.findById(showId)
         const moivename = await movie.findById(show.movie)
+      //  console.log("all things",moivename,show)
         if(!show) {
             return res.status(404)
             .json({
@@ -188,7 +190,7 @@ export const PostBookSeat = async (req, res) => {
                 alreadyBookedSeat.push(seatNumber)
             } else {
                 seat.isBooked = true;
-                seat.bookedBy = userId;
+                seat.bookedBy =  User._id // userId;
                 seat.bookedAt = new Date();
             }
         })
