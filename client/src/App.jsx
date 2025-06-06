@@ -1,8 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
+import LayoutAdmin from './Components/LayoutAdmin'
 import AddMovies from './pages/Admin/AddMovies'
 import AdminDashboard from './pages/Admin/AdminDashboard'
 import AdminPanel from './pages/Admin/AdminPanel'
+import CreateInstance from './pages/Admin/CreateInstance'
+import Movies from './pages/Admin/Movies'
 import Login from './pages/auth/Login'
 import OauthSuccess from './pages/auth/OauthSuccess'
 import Signup from './pages/auth/Signup'
@@ -22,12 +25,25 @@ const App = () => {
           <Route path='/oauth-success' element={<OauthSuccess/>}/>
 
 
-        
-          <Route path='/AdminPanel' element={<AdminPanel/>}/>
-          <Route path='/dashboard' element={<AdminDashboard/>}/>
-          <Route path='/dashboard/movie' element={<AddMovies/>}/>
+          <Route element={<LayoutAdmin/>}>
+            <Route path='/AdminPanel' element={<AdminPanel/>}/>
+            <Route path='/dashboard' element={<AdminDashboard/>}/>
+
+            <Route element={<Movies/>}>
+                <Route path='/dashboard/movie' element={<AddMovies/>}/>
+                <Route path='/dashboard/createInstance' element={<CreateInstance/>}/>
+            </Route>
+
+          </Route>
+          
+
+          
           
         </Routes>
+
+        
+
+
     </BrowserRouter>
   )
 }

@@ -43,11 +43,9 @@ const SeatBooking = () => {
     if (selectedSeats.includes(s)) {
       // Deselect the seat
       setSelectedSeats(selectedSeats.filter((seat) => seat !== s))
-      console.log("ssss", s)
     } else {
       // Select the seat
       setSelectedSeats([...selectedSeats, s])
-      console.log("ssss", s)
     }
   }
 

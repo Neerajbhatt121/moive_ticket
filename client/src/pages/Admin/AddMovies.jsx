@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useState } from "react"
-import { FaFilm, FaMoneyBillWave, FaUsers } from "react-icons/fa"
 
 const AddMovies = () => {
   const [name, setName] = useState("")
@@ -39,36 +38,9 @@ const AddMovies = () => {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center'>
-      {/* Cards */}
+    <div className='flex flex-col w-full min-w-100vh h-full justify-center items-center'>
 
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 w-full'>
-        <div className='bg-white p-4 rounded-xl shadow-md flex items-center space-x-4'>
-          <FaFilm className='text-3xl text-purple-600' />
-          <div>
-            <p className='text-gray-600'>Add Movie</p>
-            <h2 className='text-2xl font-bold'>120</h2>
-          </div>
-        </div>
-
-        <div className='bg-white p-4 rounded-xl shadow-md flex items-center space-x-4'>
-          <FaUsers className='text-3xl text-green-600' />
-          <div>
-            <p className='text-gray-600'>Create Instance</p>
-            <h2 className='text-2xl font-bold'>350</h2>
-          </div>
-        </div>
-
-        <div className='bg-white p-4 rounded-xl shadow-md flex items-center space-x-4'>
-          <FaMoneyBillWave className='text-3xl text-blue-600' />
-          <div>
-            <p className='text-gray-600'>Revenue</p>
-            <h2 className='text-2xl font-bold'>$12K</h2>
-          </div>
-        </div>
-      </div>
-
-      <div className='w-[35rem] h-[50rem]'>
+      <div className='w-full h-full overflow-y-auto'>
         <form
           onSubmit={handleSubmit}
           className='flex flex-col gap-4 w-96 mx-auto p-4'

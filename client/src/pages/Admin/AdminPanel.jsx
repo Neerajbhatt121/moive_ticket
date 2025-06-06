@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const AdminPanel = () => {
   return (
-    <div  className="flex h-screen bg-gray-100">
+    <div  className="flex min-h-screen h-full bg-gray-100 ">
       <aside className="w-64 bg-gray-900 text-white flex flex-col p-4">
         <h2 className="text-2xl font-bold mb-6">🎬 Admin</h2>
         <nav className="flex flex-col space-y-4">

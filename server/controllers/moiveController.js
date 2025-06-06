@@ -84,3 +84,16 @@ export const GetAllMoiveById = async (req,res) => {
         })
     }
 }
+
+// GET -- Get movie by categories
+export const GetMoivebyCAtegories = async (req,res) => {
+    try {
+        const movie = await Movie.find({genre: "Action"})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success: false,
+            message: "Error while getting by catogoires"
+        })
+    }
+}

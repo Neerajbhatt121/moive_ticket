@@ -1,5 +1,4 @@
-import { FaFilm, FaMoneyBillWave, FaSignOutAlt, FaUsers } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaFilm, FaMoneyBillWave, FaUsers } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const movies = [
@@ -9,25 +8,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex flex-col p-4">
-        <h2 className="text-2xl font-bold mb-6">🎬 Admin</h2>
-        <nav className="flex flex-col space-y-4">
-          <a href="/dashboard" className="hover:text-yellow-400">
-            Dashboard
-          </a>
-          <Link to={"/dashboard/movie"} className="hover:text-yellow-400">
-            Movies
-          </Link>
-          <a href="#" className="hover:text-yellow-400">
-            Users
-          </a>
-          <a href="#" className="hover:text-yellow-400 flex items-center">
-            <FaSignOutAlt className="mr-2" /> Logout
-          </a>
-        </nav>
-      </aside>
+    <div className="flex w-full h-full bg-gray-100">
 
       {/* Main Content */}
       <main className="flex-1 p-6 overflow-y-auto">
