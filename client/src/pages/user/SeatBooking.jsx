@@ -92,14 +92,16 @@ const SeatBooking = () => {
 
 
   return (
-    <div className='w-screen h-screen flex flex-col justify-evenly items-center'>
+    <div className="h-[100vh] p-4 flex items-center justify-center ">
+    <div className="w-full h-[90%] flex flex-col justify-around items-center  rounded-2xl shadow-2xl shadow-black">
+
       <div className='text-3xl'>🎥 Choose the Date:</div>
       <div className='w-full flex justify-center'>
         {dates.map((m, i) => (
           <div
             key={i}
-            className={`w-20 aspect-square m-2 rounded-2xl text-1xl font-bold text-gray-600 ${
-              i == instaceDate ? "bg-purple-400 text-white" : "bg-gray-200 "
+            className={`w-20 aspect-square m-2 rounded-2xl text-1xl font-medium text-gray-700 ${
+              i == instaceDate ? "bg-purple-400 text-white" : "bg-gray-100 shadow-2xl"
             }  flex flex-col justify-center items-center`}
             onClick={() => setInstanceDate(i)}
           >
@@ -112,18 +114,18 @@ const SeatBooking = () => {
       </div>
 
 
-    <div className="w-full flex flex-col flex-wrap items-start  gap-5">
-      <div>show timing :- {instanceRes?.instance[instaceDate]?.slotTime} 9:00 - 11:00</div>
+    <div className="w-full flex flex-col flex-wrap items-center  gap-5 ">
+      <div className="">show timing :- {instanceRes?.instance[instaceDate]?.slotTime}</div>
 
-      <div className='w-full flex justify-between flex-wrap '>
-        <div className='w-[30rem] h-[6rem] bg-gray-100 flex mb-3'>
+      <div className='w-full flex justify-around flex-wrap '>
+        <div className='w-[30rem] h-[6rem] bg-gray-100 flex mb-3 rounded-2xl shadow-2xl'>
           <img
             className='w-[5rem] h-[5rem] rounded-2xl m-2'
             src={resMov?.posterURL}
             alt='#'
             srcSet=''
           />
-          <div className='w-full bg-gray-100 flex flex-col p-2 justify-around'>
+          <div className='w-full bg-gray-100 flex flex-col p-2 justify-around  rounded-2xl shadow-2xl'>
             <div className='font-sans font-bold text-2xl'>{resMov?.name}</div>
             <div className='font-sans font-light text-1xl'>
               Type: {resMov?.genre}
@@ -178,21 +180,22 @@ const SeatBooking = () => {
               
             }
           </div>
-        </div>
+        </div>  
       </div>
       
 
-      <div className='w-full'>
+      <div className='w-full flex  justify-center md:justify-center lg:justify-start'>
         <div 
           onClick={() => {handleClickpayment()}}
-          className='w-80 h-10 border-1 text-center p-1  -top-10 hover:bg-black hover:text-white'>
+          className='w-80 h-10 border-1 text-center p-1 md:mx-35 bg-purple-600 rounded-xl text-white  -top-10 hover:bg-black '>
           Proceed to Payment
         </div>
       </div>
 
       </div>
 
-      <div className='w-[80%] h-0.5 bg-black ' />
+      <div className='w-[80%] h-0.5 mt-5 bg-black ' />
+    </div>
     </div>
   )
 }
