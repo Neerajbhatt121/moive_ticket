@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTheme } from "../context/Theme";
 
 const images = [
   "https://wallpaperaccess.com/full/7965055.jpg",
@@ -11,6 +12,7 @@ const images = [
 const HeroSection = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [direction, setDirection] = useState(1);
+  const {theme, } = useTheme()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,12 +38,12 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="w-screen flex flex-col  ">
-      <div className="w-[100%] aspect-[27/8] bg-white mx-0 my-5 rounded-2xl flex overflow-hidden">
+    <div className={`${theme === 'night' ? "bg-gray-600 " : "bg-white"}  w-screen flex flex-col`}>
+      <div className={` ${theme === 'night' ? "bg-gray-600 " : "bg-white"} w-[100%] aspect-[27/8]  mx-0 my-5 rounded-2xl flex overflow-hidden`}>
         <AnimatePresence initial={false} mode="wait">
           <motion.img
             key={currentIdx}
-            className="w-[10%] h-[100%]  bg-gray-300 object-cover overflow-hidden rounded-br-xl rounded-tr-xl"
+            className={` ${theme === 'night' ? "bg-gray-600 " : "bg-white"} w-[10%] h-[100%]  bg-gray-300 object-cover overflow-hidden rounded-br-xl rounded-tr-xl`}
             src={images[currentIdx % 4]}
             custom={direction}
             variants={varients}
@@ -92,7 +94,7 @@ const HeroSection = () => {
           <span
             key={i}
             className={
-              i === currentIdx ? "mx-1 text-purple-500" : "mx-1 text-gray-400"
+              i === currentIdx ? "mx-1 text-purple-600" : "mx-1 text-gray-400"
             }
           >
             ●

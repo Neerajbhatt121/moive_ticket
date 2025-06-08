@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useAuth } from "../../context/Auth"
+import { useTheme } from "../../context/Theme"
 
 const SeatBooking = () => {
   const movId = useParams()
@@ -10,6 +11,7 @@ const SeatBooking = () => {
   const [selectedSeats, setSelectedSeats] = useState([])
   const [instanceRes, setInstanceRes] = useState()
   const {auth} = useAuth()
+  const {theme} = useTheme()
 
   const dates = []
 
@@ -92,17 +94,17 @@ const SeatBooking = () => {
 
 
   return (
-    <div className="h-[100vh] p-4 flex items-center justify-center ">
+    <div className={` ${theme === 'night' ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} h-[100vh] p-4 flex items-center justify-center `}>
     <div className="w-full h-[90%] flex flex-col justify-around items-center  rounded-2xl shadow-2xl shadow-black">
 
-      <div className='text-3xl'>🎥 Choose the Date:</div>
+      <div className={`${theme === 'night' ? " text-white" : " text-black"} text-3xl `}>🎥 Choose the Date:</div>
       <div className='w-full flex justify-center'>
         {dates.map((m, i) => (
           <div
             key={i}
-            className={`w-20 aspect-square m-2 rounded-2xl text-1xl font-medium text-gray-700 ${
-              i == instaceDate ? "bg-purple-400 text-white" : "bg-gray-100 shadow-2xl"
-            }  flex flex-col justify-center items-center`}
+            className={`w-17 aspect-square m-2 rounded-2xl text-1xl font-medium text-gray-700 
+                ${theme === 'light' ? (i == instaceDate ? "bg-purple-400 text-white" : "bg-gray-100 shadow-2xl") : ((i == instaceDate ? "border-purple-400 border-2 text-purple-500" : "border-gray-100 border-2 text-white shadow-2xl"))}
+              flex flex-col justify-center items-center`}
             onClick={() => setInstanceDate(i)}
           >
             <div>{m.toLocaleDateString("en-US", { weekday: "short" })}</div>
@@ -115,17 +117,17 @@ const SeatBooking = () => {
 
 
     <div className="w-full flex flex-col flex-wrap items-center  gap-5 ">
-      <div className="">show timing :- {instanceRes?.instance[instaceDate]?.slotTime}</div>
+      <div className="">show timing :- {instanceRes?.instance[instaceDate]?.slotTimecd}</div>
 
       <div className='w-full flex justify-around flex-wrap '>
-        <div className='w-[30rem] h-[6rem] bg-gray-100 flex mb-3 rounded-2xl shadow-2xl'>
+        <div className={` ${theme === "night" ? "bg-gray-900" : " bg-gray-100"} w-[30rem] h-[6rem]  flex mb-3 rounded-2xl shadow-2xl`}>
           <img
             className='w-[5rem] h-[5rem] rounded-2xl m-2'
             src={resMov?.posterURL}
             alt='#'
             srcSet=''
           />
-          <div className='w-full bg-gray-100 flex flex-col p-2 justify-around  rounded-2xl shadow-2xl'>
+          <div className={` ${theme === "night" ? "bg-gray-900" : " bg-gray-100"} w-full  flex flex-col p-2 justify-around  rounded-2xl shadow-2xl`}>
             <div className='font-sans font-bold text-2xl'>{resMov?.name}</div>
             <div className='font-sans font-light text-1xl'>
               Type: {resMov?.genre}
@@ -137,9 +139,9 @@ const SeatBooking = () => {
         </div>
 
         
-        <div className='flex flex-col items-center '>
+        <div className='flex flex-col items-center mt-10'>
           <div className='w-[60%] h-5 bg-gray-400 rounded-t-full  text-center flex justify-center'></div>
-          <div className='grid grid-cols-10 gap-4 bg-[#F8F3F3] p-4 rounded'>
+          <div className={` ${theme === 'night' ? "bg-gray-900 " : "bg-[#F8F3F3]" } grid grid-cols-10 gap-4  p-4 rounded `}>
             {instanceRes?.instance?.[0] ? (
               Array.from({
                 length: instanceRes.instance[0].bookedSeats.length,
@@ -163,9 +165,9 @@ const SeatBooking = () => {
                         
                         ${
                           booked[index].isBooked == true
-                            ? " border-2 border-red-600 text-red-500 cursor-not-allowed"
+                            ? " border-2 border-red-600 text-red-600 cursor-not-allowed"
                             : isSelected
-                            ? "border-2 border-yellow-300 text-yellow-300"
+                            ? "border-2 border-yellow-500 text-yellow-500"
                             : "border-2 border-green-600 text-green-500"
                         }
                       `}
@@ -184,10 +186,10 @@ const SeatBooking = () => {
       </div>
       
 
-      <div className='w-full flex  justify-center md:justify-center lg:justify-start'>
+      <div className={`  w-full flex  justify-center md:justify-center lg:justify-start `}>
         <div 
           onClick={() => {handleClickpayment()}}
-          className='w-80 h-10 border-1 text-center p-1 md:mx-35 bg-purple-600 rounded-xl text-white  -top-10 hover:bg-black '>
+          className={` ${theme === 'night' ? " border-gray-200 text-gray-200 bg-gray-900" : " bg-purple-600 text-white"} w-80 h-10 border-1 text-center p-1 md:mx-35  rounded-xl   -top-10 hover:bg-black `}>
           Proceed to Payment
         </div>
       </div>

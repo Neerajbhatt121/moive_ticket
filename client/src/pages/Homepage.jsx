@@ -4,10 +4,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import HeroSection from "../Components/HeroSection";
 import Layout from "../Components/Layout";
+import { useTheme } from "../context/Theme";
 
 const Homepage = () => {
   const [movie, setMovie] = useState([]);
   const navigate = useNavigate()
+  const {theme} = useTheme()
 
   const getMoive = async () => {
     try {
@@ -36,14 +38,14 @@ const Homepage = () => {
       <div className="w-full h-full overflow-x-hidden">
       <HeroSection />
 
-      <div className="w-full h-8 mt-8 [&>*]:rounded-3xl [&>*]:w-[7rem]  [&>*]:ml-8 [&>*]:font-sans [&>*]:text-center [&>*]:pt-1 pl-10 flex justify-items-start">
+      <div className={`${theme === 'night' ? "bg-gray-600 text-gray-200" : "bg-white text-black"} w-full h-8 mt-8 [&>*]:rounded-3xl [&>*]:w-[7rem]  [&>*]:ml-8 [&>*]:font-sans [&>*]:text-center [&>*]:pt-1 pl-10 flex justify-items-start`}>
         <div className="bg-wheat text-black bg-gray-200">Most Watch</div>
         <div className="bg-black text-white">High Rated</div>
         <div className="bg-wheat text-black bg-gray-200">Latest</div>
       </div>
 
       {movie.length > 0 && (
-        <div className="w-screen mt-30 " id="main-container">
+        <div className={`${theme === 'night' ? "bg-gray-600 " : "bg-white"} w-screen mt-30 " id="main-container`}>
           <div className="w-[100%]  flex flex-wrap justify-evenly ">
               {movie.map((m,i) => (
                 <div
