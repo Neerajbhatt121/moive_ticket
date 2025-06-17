@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { IoSunny } from "react-icons/io5"
 import { RiMoonClearFill } from "react-icons/ri"
-import { useNavigate } from "react-router-dom"
 import profileImg from "../assets/profile.png"
 import { useAuth } from "../context/Auth.jsx"
 import { useTheme } from "../context/Theme.jsx"
@@ -11,18 +10,17 @@ const Header = () => {
   const { theme, setTheme } = useTheme()
   const ProfileImage = auth?.user?.profilePic ?? profileImg
   console.log(ProfileImage)
-  const navigate = useNavigate()
   const [isnight, SetIsnight] = useState(0)
 
   return (
     <div
       className={`${
-        theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
+        theme === "night" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
       }  w-full h-[4rem] flex justify-between p-2 overflow-x-hidden items-center `}
     >
       <div className='w-2.5'>TEXMIX</div>
 
-      <div className=' w-1/10 flex justify-between items-center text-gray-700 bg-gray-400 p-2 px-4 rounded-3xl shadow-xl'>
+      <div className=' w-auto flex justify-between items-center text-gray-700 bg-gray-400 p-2 px-4 gap-5 rounded-3xl shadow-xl'>
         <div
           onClick={() => {
             SetIsnight(!isnight)

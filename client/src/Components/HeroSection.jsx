@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { FaPlay } from "react-icons/fa";
 import { useTheme } from "../context/Theme";
 
 const images = [
@@ -39,28 +40,19 @@ const HeroSection = () => {
 
   return (
     <div className={`${theme === 'night' ? "bg-black " : "bg-white"}  w-screen flex flex-col`}>
-      <div className={` ${theme === 'night' ? "bg-black " : "bg-white"} w-[100%] aspect-[27/8]  mx-0 my-5 rounded-2xl flex overflow-hidden`}>
+      <div className={` ${theme === 'night' ? "bg-black " : "bg-white"} w-[100%] aspect-[25/8]  mx-0 my-5  flex overflow-hidden`}>
+          <div
+          className='w-[100%]  aspect-[24/8] absolute left-0 top-21 z-99 '
+          style={{
+            backgroundImage:
+              "radial-gradient(ellipse, transparent,black)",
+              
+          }}
+        ></div>
         <AnimatePresence initial={false} mode="wait">
           <motion.img
             key={currentIdx}
-            className={` ${theme === 'night' ? "bg-gray-600 " : "bg-white"} w-[10%] h-[100%]  bg-gray-300 object-cover overflow-hidden rounded-br-xl rounded-tr-xl`}
-            src={images[currentIdx % 4]}
-            custom={direction}
-            variants={varients}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              //  duration: 0.1
-            }}
-          />
-        </AnimatePresence>
-
-        <AnimatePresence initial={false} mode="wait">
-          <motion.img
-            key={currentIdx}
-            className="w-[100%] h-[100%] bg-gray-300 object-cover overflow-hidden rounded-0xl ml-10 mr-10"
+            className="w-[100%] h-[100%] bg-gray-300 relative object-cover overflow-hidden rounded-0xl "
             src={images[currentIdx + 1]}
             custom={direction}
             variants={varients}
@@ -69,27 +61,16 @@ const HeroSection = () => {
             exit="exit"
             transition={{
               x: { type: "spring", stiffness: 300, damping: 30 },
-              // duration: 0.1
+               duration: 0.5
             }}
           />
         </AnimatePresence>
-        <AnimatePresence initial={false} mode="wait">
-          <motion.img
-            key={currentIdx}
-            className="w-[10%] h-[100%] object-cover overflow-hidden rounded-bl-xl rounded-tl-xl"
-            src={images[(currentIdx + 2) % 4]}
-            custom={direction}
-            variants={varients}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-            }}
-          />
-        </AnimatePresence>
+            <div className="w-[40%] absolute top-[clamp(9rem,25vw,60rem)] left-[clamp(2.5rem,8vw,10rem)] text-[clamp(1rem,2.3vw,5rem)] font-extrabold font-white z-99">
+              <div className="text-white">Discover Movies by Nikola Tesla</div>
+              <div className="w-[40%] p-1 text-[clamp(0.3rem,1.5vw,3rem)] justify-center items-center text-center flex bg-yellow-600 font-medium rounded-2xl"><FaPlay/>. Watch Trailer</div>
+            </div>
       </div>
-      <div className="w-screen h-10 flex justify-center    ">
+      {/* <div className="w-screen h-10 flex justify-center ">
         {images.map((_, i) => (
           <span
             key={i}
@@ -100,7 +81,7 @@ const HeroSection = () => {
             ●
           </span>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
