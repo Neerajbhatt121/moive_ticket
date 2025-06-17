@@ -35,29 +35,61 @@ const Homepage = () => {
   return (
     <Layout title={"All movie and shows"}>
       <div><Toaster/></div>
-      <div className="w-full h-full overflow-x-hidden">
+      <div className={`${theme === 'night' ? "bg-black text-gray-200" : "bg-white text-black"} w-full h-full overflow-x-hidden`}>
       <HeroSection />
 
-      <div className={`${theme === 'night' ? "bg-gray-600 text-gray-200" : "bg-white text-black"} w-full h-8 mt-8 [&>*]:rounded-3xl [&>*]:w-[7rem]  [&>*]:ml-8 [&>*]:font-sans [&>*]:text-center [&>*]:pt-1 pl-10 flex justify-items-start`}>
+      <div className={` w-full h-8 mt-8 [&>*]:rounded-3xl [&>*]:w-[7rem]  [&>*]:ml-8 [&>*]:font-sans [&>*]:text-center [&>*]:pt-1 pl-10 flex justify-items-start`}>
         <div className="bg-wheat text-black bg-gray-200">Most Watch</div>
         <div className="bg-black text-white">High Rated</div>
         <div className="bg-wheat text-black bg-gray-200">Latest</div>
       </div>
 
-      {movie.length > 0 && (
-        <div className={`${theme === 'night' ? "bg-gray-600 " : "bg-white"} w-screen mt-30 " id="main-container`}>
-          <div className="w-[100%]  flex flex-wrap justify-evenly ">
+      
+
+          {movie.length > 0 && (
+            
+        <div className={`${theme === 'night' ? "bg-black text-white" : "bg-white text-black"} w-full   mt-30 " id="main-container`}>
+          <div className="mb-10  text-2xl font-sans font-bold ml-5">
+            Recently uploaded
+          </div>
+          <div className="w-[100%]  flex justify-evenly items-center gap-6 px-4 overflow-y-auto">
               {movie.map((m,i) => (
                 <div
                   key={i}
                   onClick={() => navigate(`/moiveDetails/${m._id}`)}
-                  className="w-[25rem] h-[6rem] bg-gray-100 flex mb-5">
+                  className="w-[18rem] h-[16rem] bg-transparent flex flex-col mb-5 shadow-2xl p-1">
                     <img 
-                        className="w-[5rem] h-[5rem] rounded-2xl m-2"
-                        src={m.posterURL} alt="#" srcSet=""  
+                        className="w-full object-cover "
+                        src={m.posterURL} alt="#" srcSet=""
                     />
 
-                    <div className="w-[100%] bg-gray-100 flex flex-col p-2 justify-around">
+                    <div className="w-[100%] bg-transparent flex flex-col p-2 justify-around">
+                        <div className="font-sans font-bold  text-2xl">{m.name}</div>
+                        <div className="font-semibold text-1xl">Type: {m.genre}</div>
+                        <div className="font-sans  text-1xl">Rating: ⭐⭐⭐⭐⭐</div>
+                    </div>          
+
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+
+
+      {movie.length > 0 && (
+        <div className={`${theme === 'night' ? "bg-black text-white" : "bg-white text-black"} w-full  mt-5 " id="main-container`}>
+          <div className="w-[100%]  flex flex-wrap justify-evenly items-center gap-5 ">
+              {movie.map((m,i) => (
+                <div
+                  key={i}
+                  onClick={() => navigate(`/moiveDetails/${m._id}`)}
+                  className="w-[16rem]  aspect-[3/2] bg-transparent flex flex-col ">
+                    <img 
+                        className="w-full object-cover "
+                        src={m.posterURL} alt="#" srcSet=""
+                    />
+
+                    <div className="w-[100%] bg-transparent flex flex-col p-2 justify-around">
                         <div className="font-sans font-bold text-2xl">{m.name}</div>
                         <div className="font-sans font-light text-1xl">Type: {m.genre}</div>
                         <div className="font-sans font-light text-1xl">Rating: ⭐⭐⭐⭐⭐</div>

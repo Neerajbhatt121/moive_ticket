@@ -38,8 +38,8 @@ const HeroSection = () => {
   };
 
   return (
-    <div className={`${theme === 'night' ? "bg-gray-600 " : "bg-white"}  w-screen flex flex-col`}>
-      <div className={` ${theme === 'night' ? "bg-gray-600 " : "bg-white"} w-[100%] aspect-[27/8]  mx-0 my-5 rounded-2xl flex overflow-hidden`}>
+    <div className={`${theme === 'night' ? "bg-black " : "bg-white"}  w-screen flex flex-col`}>
+      <div className={` ${theme === 'night' ? "bg-black " : "bg-white"} w-[100%] aspect-[27/8]  mx-0 my-5 rounded-2xl flex overflow-hidden`}>
         <AnimatePresence initial={false} mode="wait">
           <motion.img
             key={currentIdx}
