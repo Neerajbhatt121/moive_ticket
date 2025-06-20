@@ -89,7 +89,7 @@ const Homepage = () => {
                   onClick={() => navigate(`/moiveDetails/${m._id}`)}
                   className="w-[18rem]  aspect-[4/6] bg-transparent flex flex-col ">
                     <img 
-                        className="w-full h-[80%] object-cover "
+                        className="w-full h-[80%] object-cover"
                         src={m.posterURL} alt="#" srcSet=""
                     />
 

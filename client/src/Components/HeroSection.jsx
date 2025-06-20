@@ -40,9 +40,9 @@ const HeroSection = () => {
 
   return (
     <div className={`${theme === 'night' ? "bg-black " : "bg-white"}  w-screen flex flex-col`}>
-      <div className={` ${theme === 'night' ? "bg-black " : "bg-white"} w-[100%] aspect-[25/8]  mx-0 my-5  flex overflow-hidden`}>
+      <div className={` ${theme === 'night' ? "bg-black " : "bg-white"} w-[100%] aspect-[25/8] my-4  flex overflow-hidden`}>
           <div
-          className='w-[100%]  aspect-[24/8] absolute left-0 top-21 z-99 '
+          className='w-[100%]  aspect-[24/8] absolute left-0 top-18 z-99 '
           style={{
             backgroundImage:
               "radial-gradient(ellipse, transparent,black)",
