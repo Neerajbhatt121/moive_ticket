@@ -3,10 +3,11 @@ import { CgProfile } from "react-icons/cg"
 import { IoSunny } from "react-icons/io5"
 import { LuTicketSlash } from "react-icons/lu"
 import { RiLogoutCircleRLine, RiMoonClearFill } from "react-icons/ri"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import profileImg from "../assets/profile.png"
 import { useAuth } from "../context/Auth.jsx"
 import { useTheme } from "../context/Theme.jsx"
+import SearchForm from "../pages/user/Form/SearchForm.jsx"
 
 const Header = () => {
   const { auth, logout } = useAuth()
@@ -14,8 +15,15 @@ const Header = () => {
   const ProfileImage = auth?.user?.profilePic ?? profileImg
   console.log(ProfileImage)
   const [isnight, SetIsnight] = useState(0)
-  const [menu, setMenu] = useState(0)
+  const [menu, setMenu] = useState(1)
+  const navigate = useNavigate ();
   console.log(auth?.user?.role)
+
+
+  const handlelogout = () => {
+    logout()
+    navigate('/Login')
+  }
 
   return (
     <div
@@ -23,10 +31,10 @@ const Header = () => {
         theme === "night" ? "bg-black text-white " : "bg-gray-100 text-black "
       }  w-full h-[4rem] flex justify-between p-2 overflow-x-hidden items-center `}
     >
-      <div className='w-2.5'>TEXMIX</div>
+      <div className='w-auto'>TEXMIX</div>
 
-      <div className='max-w-full  h-[90%] '>
-        <input type='text' />
+      <div className='w-[75%] h-[95%] mx-2'>
+        <SearchForm/>
       </div>
 
       <div className=' w-auto flex justify-between items-center text-gray-700 bg-gray-400 p-2 px-4 gap-5 rounded-3xl shadow-xl'>
@@ -75,12 +83,10 @@ const Header = () => {
               <CgProfile /> Profile
             </li>
             {auth?.user?.role === 1 && (
-              <li onClick={(e) => {e.stopPropagation()}}>
-                <NavLink to="/dashboard">
-                  <CgProfile /> Dashboard
-                </NavLink>
+              <NavLink to="/dashboard">
+                    <CgProfile /> Dashboard
+              </NavLink>
                     
-              </li>
             )}
             <li
               onClick={(e) => {
@@ -92,7 +98,7 @@ const Header = () => {
             <li
               onClick={(e) => {
                 e.stopPropagation()
-                logout()
+                handlelogout()
               }}
             >
               <RiLogoutCircleRLine /> Logout

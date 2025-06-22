@@ -1,5 +1,5 @@
-import axios from "axios"
-import { createContext, useContext, useEffect, useState } from "react"
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext()
 
@@ -74,5 +74,5 @@ const AuthProvider = ({ children }) => {
 
 // custom hook
 const useAuth = () => useContext(AuthContext)
-export { AuthProvider, useAuth }
+export { AuthProvider, useAuth };
 

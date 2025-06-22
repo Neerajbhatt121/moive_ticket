@@ -89,11 +89,40 @@ export const GetAllMoiveById = async (req,res) => {
 export const GetMoivebyCAtegories = async (req,res) => {
     try {
         const movie = await Movie.find({genre: "Action"})
+        if(!movie) res.status(500).send({
+            success: false,
+            message: "not that movie exist"
+        })
+        return res.status(200).send({
+            success: true,
+            message: "movie getted",
+            movie
+        })
     } catch (error) {
         console.log(error)
         return res.status(500).send({
             success: false,
             message: "Error while getting by catogoires"
+        })
+    }
+}
+
+// GET -- Getting movie by name or keywords
+export const GetMovieBySearchKeyword = async (req,res) => {
+    try {
+        const result = await Movie.find({
+            $or: [
+            {name:{$regex :keyword, $options:"i"}},
+            {discription:{$regex :keyword, $options:"i"}},
+            {genre:{$regex :keyword, $options:"i"}}
+            ]
+        })
+        res.json(result)
+    } catch (error) {
+        console.log("Error while GetMovieBySearchKeyword",error)
+        return res.status(500).send({
+            success: false,
+            message: "Error while getting the movie"
         })
     }
 }
