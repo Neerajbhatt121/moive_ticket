@@ -11,6 +11,7 @@ import OauthSuccess from './pages/auth/OauthSuccess'
 import Signup from './pages/auth/Signup'
 import Homepage from './pages/Homepage'
 import MoiveDetails from './pages/user/MoiveDetails'
+import SearchResultpage from './pages/user/SearchResultpage'
 import SeatBooking from './pages/user/SeatBooking'
 
 const App = () => {
@@ -23,6 +24,8 @@ const App = () => {
           <Route path='/moiveDetails/:movId' element={<MoiveDetails/>}/>
           <Route path='/bokking/:movId' element={<SeatBooking/>}/>
           <Route path='/oauth-success' element={<OauthSuccess/>}/>
+          <Route path='/search-page' element={<SearchResultpage/>}/>
+          
 
 
           <Route element={<LayoutAdmin/>}>

@@ -110,6 +110,7 @@ export const GetMoivebyCAtegories = async (req,res) => {
 // GET -- Getting movie by name or keywords
 export const GetMovieBySearchKeyword = async (req,res) => {
     try {
+        const {keyword} = req.params
         const result = await Movie.find({
             $or: [
             {name:{$regex :keyword, $options:"i"}},

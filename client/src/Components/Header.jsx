@@ -37,7 +37,7 @@ const Header = () => {
         <SearchForm/>
       </div>
 
-      <div className=' w-auto flex justify-between items-center text-gray-700 bg-gray-400 p-2 px-4 gap-5 rounded-3xl shadow-xl'>
+      <div className=' w-auto flex justify-evenly items-center text-gray-700 bg-gray-400 p-1.5 px-4 gap-2 rounded-3xl shadow-xl'>
         <div
           onClick={() => {
             SetIsnight(!isnight)

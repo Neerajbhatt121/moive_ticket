@@ -9,10 +9,15 @@ const SearchForm = () => {
     const navigate = useNavigate()
     const {theme} = useTheme()
 
-    const handleSumit = (e) => {
-        e.preventDefualt()
+    const handleSubmit = async (e) => {
+        console.log(values.keyword)
+        e.preventDefault()
         try {
-            const result = await axios.get('/')
+            const result = await axios.get(`/api/v1/moive/getMovieByKeyword/${values.keyword}`)
+            console.log(result.data)
+            setValues({...values, result:result.data})
+            console.log(values, "sssssssssssssssss")
+            navigate('search-page')
         } catch (error) {
             console.log(error)
         }
@@ -21,7 +26,7 @@ const SearchForm = () => {
   return (
     <div className="w-full h-[100%] ">
         <form action="submit" className="w-full h-[100%]"
-            onSubmit={handleSumit}
+            onSubmit={handleSubmit}
             >
             <input 
                 className={`${theme === "night" ? "bg-black text-white border-2 border-gray-700 outline-none" : "bg-gray-100 text-black outline-none "} w-full h-[100%]  px-5 rounded-3xl shadow-2xl `}

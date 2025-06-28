@@ -48,8 +48,8 @@ const Homepage = () => {
 
           {movie.length > 0 && (
             
-        <div className={`${theme === 'night' ? "bg-black text-white" : "bg-white text-black"} w-full   mt-20 " id="main-container`}>
-          <div className="mb-10  text-2xl font-sans font-bold ml-5">
+        <div className={`${theme === 'night' ? "bg-black text-amber-100" : "bg-white text-black"} w-full   mt-20 " id="main-container`}>
+          <div className="mb-10  text-2xl font-sans font-bold ml-5 ">
             Recently uploaded
           </div>
           <div className="w-[100%]  flex justify-evenly items-center gap-0 px-4 overflow-y-auto">
@@ -81,13 +81,13 @@ const Homepage = () => {
       </div>
 
       {movie.length > 0 && (
-        <div className={`${theme === 'night' ? "bg-black text-white" : "bg-white text-black"} w-full  mt-5 " id="main-container`}>
-          <div className="w-[100%]  flex flex-wrap justify-evenly items-center gap-5 ">
+        <div className={`${theme === 'night' ? "bg-black text-amber-100" : "bg-white text-black"} w-full  mt-5 " id="main-container`}>
+          <div className="w-[100%] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 px-2 ">
               {movie.map((m,i) => (
                 <div
                   key={i}
                   onClick={() => navigate(`/moiveDetails/${m._id}`)}
-                  className="w-[18rem]  aspect-[4/6] bg-transparent flex flex-col ">
+                  className="aspect-[4/6] bg-transparent flex flex-col ">
                     <img 
                         className="w-full h-[80%] object-cover"
                         src={m.posterURL} alt="#" srcSet=""

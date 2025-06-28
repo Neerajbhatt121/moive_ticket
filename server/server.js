@@ -3,17 +3,60 @@ import cors from "cors";
 import dotenv from 'dotenv';
 import express from "express";
 import session from "express-session";
+import { createServer } from 'http';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
+import { Server } from 'socket.io';
 import instanceRoutes from '../server/routes/instanceRoutes.js';
 import moiveRoutes from "../server/routes/moiveRoutes.js";
 import { connectDB } from './config/db.js';
 import "./config/passport.js";
 import authRoutes from "./routes/authRoutes.js";
+
 dotenv.config();
 
 const app = express();
+
+// For Socket.io 
+const server = createServer(app)
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST'],
+        credentials: true 
+    }
+})
+
+
+const selectedSeat = {}
+
+io.on("connection", (socket) => {
+  console.log("✅ Socket connected:", socket.id)
+
+  socket.on('joinInstance', (instanceId) => {
+    socket.join(instanceId)
+    console.log(`🟢 Joined room: ${instanceId}`)
+  })
+
+  socket.on('leaveInstance', (instanceId) => {
+    socket.leave(instanceId)
+    console.log(`🔴 Left room: ${instanceId}`)
+  })
+
+  socket.on('selectSeat', ({ seatNumber, instanceId, userId }) => {
+    console.log(`🎫 ${userId} selected seat ${seatNumber}`)
+    io.to(instanceId).emit('seatSelected', { seatNumber, userId })
+  })
+
+  socket.on('unselectSeat', ({ seatNumber, instanceId }) => {
+    console.log(`❌ Seat ${seatNumber} unselected`)
+    io.to(instanceId).emit('seatUnselected', { seatNumber })
+  })
+})
+
+
+
 
 connectDB();
 
@@ -49,6 +92,7 @@ app.get("/google", (req, res) => {
 
 const port = process.env.PORT || 8080
 
-app.listen(port, ()=> {
+server.listen(port, ()=> {
     console.log(chalk.bgYellow.bold(`Server started on ${port}`))
+    console.log(chalk.bgYellow.bold(`Server (w/Socket.IO) started on ${port}`));
 })

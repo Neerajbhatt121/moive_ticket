@@ -65,23 +65,11 @@ const HeroSection = () => {
             }}
           />
         </AnimatePresence>
-            <div className="w-[40%] absolute top-[clamp(9rem,25vw,60rem)] left-[clamp(2.5rem,8vw,10rem)] text-[clamp(1rem,2.3vw,5rem)] font-extrabold font-white z-99">
+            <div className="w-[40%] absolute top-[clamp(7rem,25vw,60rem)] left-[clamp(2.5rem,8vw,10rem)] text-[clamp(1rem,2.3vw,5rem)] font-extrabold font-white z-99">
               <div className="text-white">Discover Movies by Nikola Tesla</div>
               <div className="w-[40%] p-1 text-[clamp(0.3rem,1.5vw,3rem)] justify-center items-center text-center flex bg-yellow-600 font-medium rounded-2xl"><FaPlay/>. Watch Trailer</div>
             </div>
       </div>
-      {/* <div className="w-screen h-10 flex justify-center ">
-        {images.map((_, i) => (
-          <span
-            key={i}
-            className={
-              i === currentIdx ? "mx-1 text-purple-600" : "mx-1 text-gray-400"
-            }
-          >
-            ●
-          </span>
-        ))}
-      </div> */}
     </div>
   );
 };
