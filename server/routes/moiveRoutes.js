@@ -1,5 +1,5 @@
 import express from 'express';
-import { createMoive, GetAllMoive, GetAllMoiveById, GetMovieBySearchKeyword } from '../controllers/moiveController.js';
+import { createMoive, GetAllMoive, GetAllMoiveById, GetMovieBySearchKeyword, GetMovieSimilar } from '../controllers/moiveController.js';
 import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 import upload from '../middleware/multer.js';
 import sendMail from "../service/sendmail.js";
@@ -16,6 +16,8 @@ router.get('/getAllmoives', GetAllMoive);
 router.get('/getMovieById/:movieId', GetAllMoiveById);
 
 router.get('/getMovieByKeyword/:keyword', GetMovieBySearchKeyword);
+
+router.get('/getSimilarMovie/:similer', GetMovieSimilar);
 
 router.get('/mail', sendMail);
 

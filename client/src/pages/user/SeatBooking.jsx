@@ -15,7 +15,6 @@ const SeatBooking = () => {
   const { auth } = useAuth();
   const { theme } = useTheme();
   const [instaceSlot, setInstanceSlot] = useState(0);
-  const [slotvalue, setvalueslot] = useState(0);
 
   const dates = [];
 
@@ -190,7 +189,7 @@ const SeatBooking = () => {
               {slot.map((m, i) => (
                 <div
                   key={i}
-                  className={`w-17 aspect-video m-2 rounded-[8px] text-1xl font-medium text-gray-700 
+                  className={`w-17 aspect-video m-2 rounded-[8px] text-[12px] font-medium text-gray-700 
                 ${
                   theme === "light"
                     ? i == instaceSlot
@@ -198,7 +197,7 @@ const SeatBooking = () => {
                       : "bg-gray-100 shadow-2xl"
                     : i == instaceSlot
                       ? "border-purple-400 border-2 text-purple-500"
-                      : "border-gray-400 border-2 text-gray-200 shadow-2xl"
+                      : "border-gray-400 border-2 text-gray-100 shadow-2xl"
                 }
               flex flex-col justify-center items-center`}
                   onClick={() => setInstanceSlot(i)}

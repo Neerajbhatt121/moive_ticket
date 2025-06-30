@@ -127,3 +127,25 @@ export const GetMovieBySearchKeyword = async (req,res) => {
         })
     }
 }
+
+
+// GET -- Getting movie by similar
+export const GetMovieSimilar = async (req,res) => {
+    try {
+        const {similer} = req.params
+        const result = await Movie.find({
+            $or: [
+            // {name:{$regex :similar, $options:"i"}},
+            // {discription:{$regex :keyword, $options:"i"}},
+            {genre:{$regex :similer, $options:"i"}}
+            ]
+        }).limit(6)
+        res.json(result)
+    } catch (error) {
+        console.log("Error while similar movies",error)
+        return res.status(500).send({
+            success: false,
+            message: "Error while getting the movie"
+        })
+    }
+}
