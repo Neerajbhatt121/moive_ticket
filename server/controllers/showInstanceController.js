@@ -91,6 +91,46 @@ export const GetInstanceForMoive = async (req,res) => {
     }
 }
 
+export const GetThisWeakShows = async (req,res) => {
+    try {
+        const today = new Date;
+        const next7Day = new Date;
+        next7Day.setDate(today.getDate() + 7)
+
+        const instance = await ShowInstance.find({
+            date: {$gte: today, $lte: next7Day}
+        }).select("movie")
+
+        if(!instance){
+            console.log("no moive instance found")
+            return res.status(200).send({
+                success: true,
+                message: "No instance found"
+            })
+        }
+
+        const insMovId = instance?.data?.instance.map((e) => {
+            insMovId.push(e.movie)
+        })
+
+        console.log("moviId currrrrrrrrrr", insMovId)
+        console.log(instance, req.params)
+        return res.status(200).send({
+            success: true,
+            message: "movie instance founded",
+            instance
+            
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.statumovies(500).send({
+            success: false,
+            message: "Error while finding the thsi weak shows"
+        })
+    }
+}
+
 export const GetInstanceForMoiveEachDay = async (req,res) => {
     try {
         const {movId, date} = req.params;

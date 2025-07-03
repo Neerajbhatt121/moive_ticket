@@ -4,15 +4,19 @@ import Movie from '../modal/Moive.js';
 // POST -- Creating the movie
 export const createMoive = async (req,res) => {
     console.log("Request Body:", JSON.stringify(req.body, null, 2));
+    console.log("body genre", req.body)
     try {
         const {name, description, duration,price, genre} = req.body;
+        console.log("genre ", genre, genre.split(","))
+        
         if(!req.file){
             return res.status(101).send({
                 message: "image problem"
             })
         }
         const posterURL = req.file.path || req.file.secure_url;
-
+        const genreArray = genre.split(",");
+        console.log("Arraygen", genreArray)
 
         const newMovie = new Movie({
             name,
@@ -20,7 +24,7 @@ export const createMoive = async (req,res) => {
             duration,
             price,
             posterURL,
-            genre
+            genre:genreArray
         });
 
         await newMovie.save();
@@ -133,13 +137,22 @@ export const GetMovieBySearchKeyword = async (req,res) => {
 export const GetMovieSimilar = async (req,res) => {
     try {
         const {similer} = req.params
+        const genreArray = JSON.parse(similer)
+        console.log("sdfsdf",genreArray, similer)
+        const genres = JSON.parse(similer);
+            // Create a regex array
+            const regexArray = genres.map((g) => ({
+                genre: { $regex: g, $options: "i" }
+            }));
+            console.log("regrex",regexArray)
         const result = await Movie.find({
-            $or: [
-            // {name:{$regex :similar, $options:"i"}},
-            // {discription:{$regex :keyword, $options:"i"}},
-            {genre:{$regex :similer, $options:"i"}}
-            ]
+            // $or: [
+            // {genre:{$regex :regexArray, $options:"i"}}
+            // ]
+           // genre: {$in : regexArray}
+           $or: regexArray
         }).limit(6)
+        
         res.json(result)
     } catch (error) {
         console.log("Error while similar movies",error)

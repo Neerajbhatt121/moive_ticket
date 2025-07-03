@@ -28,7 +28,7 @@ const Header = () => {
   return (
     <div
       className={`${
-        theme === "night" ? "bg-black text-white " : "bg-gray-100 text-black "
+        theme === "night" ? "bg-black text-white " : "bg-white text-black "
       }  w-full h-[4rem] flex justify-between p-2 overflow-x-hidden items-center `}
     >
       <div className='w-auto'>TEXMIX</div>

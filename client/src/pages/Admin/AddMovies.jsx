@@ -7,7 +7,7 @@ const AddMovies = () => {
   const [duration, setDuration] = useState("")
   const [posterURL, setPosterURL] = useState("")
   const [price, setPrice] = useState(500) // default
-  const [genre, setGenre] = useState("")
+  const [genre, setGenre] = useState([])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -17,11 +17,11 @@ const AddMovies = () => {
     formData.append("description", description)
     formData.append("duration", Number(duration))
     formData.append("price", Number(price))
-    formData.append("genre", genre) 
+    formData.append("genre", genre.split(","));
 
     formData.append("posterURL", posterURL)
 
-    console.log("Form Data:", formData)
+    console.log("Form Data:", formData, name, genre.split(","))
 
     try {
       const response = await axios.post(
