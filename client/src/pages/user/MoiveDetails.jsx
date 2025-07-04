@@ -22,7 +22,6 @@ const MoiveDetails = () => {
       console.log("data here", response.data.movie.posterURL)
       setResMov(response.data.movie)
       setSimilar(response?.data?.movie?.genre)
-      console.log("lllllllllllllllllllllllll",response.data.movie.genre, similer)
     } catch (error) {
       console.log(error)
     }

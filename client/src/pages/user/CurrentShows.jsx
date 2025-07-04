@@ -12,9 +12,9 @@ const CurrentShows = () => {
     
     const getCurrShows = async () => {
             try {
-                const response = await axios.get(`/api/v1/instance/getInstanceWeak/2025-07-03`)
-                console.log("current shows",response.data.instance)
-                setCurrMov(response.data.instance)
+                const response = await axios.get(`/api/v1/instance/getInstanceWeak/${date}`)
+                console.log("current shows",response.data)
+                setCurrMov(response.data.result)
             } catch (error) {
                 console.log(error)
             }
@@ -33,16 +33,16 @@ const CurrentShows = () => {
               theme === "night"
                 ? "bg-black text-amber-100"
                 : "bg-white text-black"
-            } w-full   mt-20 " id="main-container`}
+            } w-full   mt-10 " id="main-container`}
           >
-            <div className='mb-10  text-2xl font-sans font-bold ml-5 '>
-              Recently uploaded
+            <div className='  text-2xl font-sans font-bold ml-5 '>
+              This weak shows
             </div>
-            <div className='w-[100%]  flex justify-start items-center gap-1 px-4 overflow-x-auto no-scrollbar'>
+            <div className='w-[100%] pb-10 flex justify-start items-center gap-1 px-4 overflow-x-auto no-scrollbar'>
               {currMov.map((m, i) => (
                 <div
                   key={i}
-                  onClick={() => navigate(`/moiveDetails/${m._id}`)}
+                  onClick={() => navigate(`/moiveDetails/${m.movie}`)}
                   className=' w-[14rem] h-[11rem] sm:w-[18rem] sm:h-[14rem]  flex flex-col mb-5 justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
                 >
                   <img

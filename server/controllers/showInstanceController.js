@@ -1,4 +1,4 @@
-import movie from "../modal/Moive.js";
+import { default as Moive, default as movie } from "../modal/Moive.js";
 import ShowInstance from "../modal/ShowInstance.js";
 import Ticket from "../modal/Ticket.js";
 import user from "../modal/User.js";
@@ -109,17 +109,21 @@ export const GetThisWeakShows = async (req,res) => {
             })
         }
 
-        const insMovId = instance?.data?.instance.map((e) => {
-            insMovId.push(e.movie)
-        })
+        const insMovId = await Promise.all(
+            instance.map(id => Moive.findById(id.movie).select("posterURL")))
 
-        console.log("moviId currrrrrrrrrr", insMovId)
-        console.log(instance, req.params)
+        const result = instance.map((e, i) => {
+            const obj = e.toObject(); // important!
+            obj.posterURL = insMovId[i]?.posterURL || null;
+            obj.insId = e._id
+            return obj;
+        });
+
+        console.log("moviId currrrrrrrrrr", result)
         return res.status(200).send({
             success: true,
             message: "movie instance founded",
-            instance
-            
+            result,
         })
 
     } catch (error) {
