@@ -13,6 +13,7 @@ import Homepage from './pages/Homepage'
 import MoiveDetails from './pages/user/MoiveDetails'
 import SearchResultpage from './pages/user/SearchResultpage'
 import SeatBooking from './pages/user/SeatBooking'
+import WeakCalender from './pages/user/WeakCalander'
 
 const App = () => {
   return (
@@ -23,8 +24,10 @@ const App = () => {
           <Route path='/Login' element={<Login/>}/>
           <Route path='/moiveDetails/:movId' element={<MoiveDetails/>}/>
           <Route path='/booking/:movId' element={<SeatBooking/>}/>
+          <Route path='/booking/:movId/:Mdate/:slotTime' element={<SeatBooking/>}/>
           <Route path='/oauth-success' element={<OauthSuccess/>}/>
           <Route path='/search-page' element={<SearchResultpage/>}/>
+          <Route path='/weakCalender' element={<WeakCalender/>}/>
           
 
 

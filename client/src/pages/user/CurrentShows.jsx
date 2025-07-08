@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useTheme } from '../../context/Theme'
 
 
@@ -8,13 +8,14 @@ const CurrentShows = () => {
     const [currMov, setCurrMov] = useState([])
     const {theme} = useTheme()
     const navigate = useNavigate()
-    const {date} = useParams()
+    const date = new Date
     
     const getCurrShows = async () => {
             try {
-                const response = await axios.get(`/api/v1/instance/getInstanceWeak/${date}`)
+              console.log("Date ",date.toISOString().split("T")[0])
+                const response = await axios.get(`/api/v1/instance/getInstanceWeak/${date.toISOString().split("T")[0]}`)
                 console.log("current shows",response.data)
-                setCurrMov(response.data.result)
+                setCurrMov(response.data.filtered)
             } catch (error) {
                 console.log(error)
             }
@@ -42,7 +43,8 @@ const CurrentShows = () => {
               {currMov.map((m, i) => (
                 <div
                   key={i}
-                  onClick={() => navigate(`/moiveDetails/${m.movie}`)}
+                  onClick={() =>{ navigate(`/booking/${m.movie}/${m.date.split("T")[0]}/${m.slotTime}`)
+                     console.log(`${m.movie}/${m.date}/${m.slotTime})}`)}}
                   className=' w-[14rem] h-[11rem] sm:w-[18rem] sm:h-[14rem]  flex flex-col mb-5 justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
                 >
                   <img

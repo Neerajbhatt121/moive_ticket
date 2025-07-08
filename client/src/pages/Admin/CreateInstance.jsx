@@ -38,7 +38,7 @@ const CreateInstance = () => {
 
     const preInsanse = await axios.get(`http://localhost:5000/api/v1/instance/getInstance/${date.toISOString().split("T")[0]}/${seletedMovie}/${slotetime}`)
 
-    if (preInsanse.data && preInsanse.data.instance.length > 0) {
+    if (preInsanse?.data && preInsanse?.data?.instance?.length > 0) {
         toast.error("Slot already booked");
         console.log("existing instance found");
     return;
@@ -54,7 +54,7 @@ const CreateInstance = () => {
       console.log(instance)
     }
 
-    if(instance.data.success === true){
+    if(instance?.data?.success === true){
       toast.success("Instance Created Successfully")
     } else {
       toast.error("Instance not Created Successfully")
@@ -113,6 +113,7 @@ const CreateInstance = () => {
             onChange={(e) => setSlottime(e.target.value)}
             className='w-full p-2 border border-gray-300 rounded'
           >
+            <option value='0'>Select Time</option>
             <option value='morning'>9:00 AM - 11:00 AM</option>
             <option value='afternoon'>12:00 PM - 2:00 PM</option>
             <option value='evening'>3:00 PM - 5:00 PM</option>

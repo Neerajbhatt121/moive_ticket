@@ -99,7 +99,7 @@ export const GetThisWeakShows = async (req,res) => {
 
         const instance = await ShowInstance.find({
             date: {$gte: today, $lte: next7Day}
-        }).select("movie")
+        }).select("-bookedSeats")
 
         if(!instance){
             console.log("no moive instance found")
@@ -119,11 +119,23 @@ export const GetThisWeakShows = async (req,res) => {
             return obj;
         });
 
-        console.log("moviId currrrrrrrrrr", result)
+        const uniqueMoviesMap = new Map();
+
+result.forEach((item) => {
+  const movieId = item.movie.toString(); // convert ObjectId to string for consistency
+  if (!uniqueMoviesMap.has(movieId)) {
+    uniqueMoviesMap.set(movieId, item); // store the first instance of the movie
+  }
+});
+
+const filtered = Array.from(uniqueMoviesMap.values());
+
+        console.log("moviId currrrrrrrrrr", filtered)
         return res.status(200).send({
             success: true,
             message: "movie instance founded",
             result,
+            filtered
         })
 
     } catch (error) {
@@ -176,6 +188,7 @@ export const GetInstanceCheck = async (req,res) => {
         console.log("here all params",req.params)
 
         const instance = await ShowInstance.find({
+            movie:movId,
             slotTime: slotTime,
             date: date,
         });
@@ -224,16 +237,42 @@ const generateSeats = () => {
   };
 
 // GET -- Get the Instance by Id
-export const GetShowInstanceById = async (req, res) => {
+export const GetShowInstanceBySlotTimeAndDate = async (req, res) => {
+    console.log("params", req.params)
     try {
-        
+        const { date, slotTime} = req.params;
+        console.log("here all params",req.params)
+
+        const instance = await ShowInstance.find({
+            slotTime: slotTime,
+            date: date,
+        });
+
+        console.log("Filtered instance by slotTime:", instance);
+
+        if (!instance || instance.length === 0) {
+            console.log("No movie instance found", instance)
+            return res.status(200).send({
+                success: true,
+                message: "No instance found",
+                instance: instance
+            });
+        }
+        console.log(instance, req.params)
+        return res.status(200).send({
+            success: true,
+            message: "movie instance founded",
+            instance
+        })
+
     } catch (error) {
-        console.log("error here", error)
+        console.log(error)
         return res.status(500).send({
             success: false,
-            message: "error here"
+            message: "Error while finding the instance for the particular date and slot"
         })
     }
+
 }
 
 // POST -- Book the seat 

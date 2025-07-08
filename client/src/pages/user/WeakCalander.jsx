@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/Auth";
 import { useTheme } from "../../context/Theme";
 import { socket } from "../socket";
 
-const SeatBooking = () => {
- // const movId = useParams();
+const WeakCalender  = () => {
   const [resMov, setResMov] = useState();
   const [instaceDate, setInstanceDate] = useState(0);
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -17,7 +15,7 @@ const SeatBooking = () => {
   const { theme } = useTheme();
   const [instaceSlotIdx, setInstanceSlotIdx] = useState(0);
   const [instaceSlot, setInstanceSlot] = useState('morning');
-  let { slotTime, Mdate, movId } = useParams();
+  const [movId, setmovId] = useState()
 
   const dates = [];
    const slot = ["morning", "afternoon", "evening", "night"];
@@ -30,10 +28,8 @@ const SeatBooking = () => {
 
   const getDetails = async () => {
     try {
-      console.log(movId.movId);
-
       const response = await axios.get(
-        `http://localhost:5000/api/v1/moive/getMovieById/${movId}`,
+        `http://localhost:5000/api/v1/moive/getMovieById/${movId ? movId : null}`,
       );
       // console.log("data here", response.data)
       setResMov(response.data.movie);
@@ -45,7 +41,7 @@ const SeatBooking = () => {
 
   useEffect(() => {
     getDetails();
-  }, []);
+  }, [movId]);
 
   // socket
   useEffect(() => {
@@ -93,24 +89,27 @@ const SeatBooking = () => {
   // Getting the movie instance for today
   const GettingInstance = async () => {
     try {
-     // const date = dates[instaceDate];
-      console.log("movid" , movId, Mdate.split("T")[0], instaceSlot)
+      const date = dates[instaceDate];
+      console.log("movid" , date.toISOString().split("T")[0], instaceSlot)
       const instance = await axios.get(
-        `/api/v1/instance/getInstance/${
-          Mdate.split("T")[0]
-        }/${movId}/${slotTime}`
+        `/api/v1/instance/getInstanceDate&Time/${instaceSlot}/${
+          date.toISOString().split("T")[0]
+        }`
       );
-      console.log("Curr instance ", instance?.data?.instance)
-      setInstanceRes(instance?.data?.instance[0]);
+      console.log("Curr instance ", instance?.data?.instance[0])
+      setInstanceRes(instance?.data?.instance[0])
+      setmovId(instance?.data?.instance[0]?.movie)
+      console.log(instance?.data?.instance[0]?.movie)
     } catch (error) {
       console.log("Can't get the instance of movie", error);
     }
   };
 
+
   useEffect(() => {
     GettingInstance();
     setSelectedSeats([]);
-    console.log("error",instaceDate, instaceSlot, slotTime)
+    console.log("error",instaceDate, instaceSlot)
   }, [instaceDate, instaceSlot]);
 
   const handleClickpayment = async () => {
@@ -137,8 +136,6 @@ const SeatBooking = () => {
       console.log(error);
     }
   };
-
- 
 
   return (
     <div
@@ -190,7 +187,7 @@ const SeatBooking = () => {
             <span>
               show timing :-{" "} 
               {instanceRes?.instance &&
-              instanceRes?.instance?.length > instaceSlotIdx &&
+              instanceRes.instance.length > instaceSlotIdx &&
               instanceRes.instance[instaceSlotIdx]?.slotTime 
                 ? instanceRes.instance[instaceSlotIdx].slotTime
                 : "No Show Found"}
@@ -230,7 +227,7 @@ const SeatBooking = () => {
             >
               <img
                 className="w-[5rem] h-[5rem] rounded-2xl m-2"
-                src={resMov?.posterURL}
+                src={resMov ? resMov?.posterURL : ""}
                 alt="#"
                 srcSet=""
               />
@@ -259,7 +256,7 @@ const SeatBooking = () => {
                 } grid grid-cols-10 gap-4  p-4 rounded `}
               >
                 {instanceRes? (
-                    instanceRes?.bookedSeats?.map((s, index) => {
+                    instanceRes.bookedSeats?.map((s, index) => {
                     const booked = instanceRes.bookedSeats;
                     // const isBooked = booked.includes(index)
                     const isSelected = selectedSeats.includes(
@@ -299,7 +296,20 @@ const SeatBooking = () => {
                     );
                   })
                 ) : (
-                  <div className="text-center w-70 ">No instance This Date and slot</div>
+                  // 
+                  <div
+  className={`${
+    theme === "night" ? "bg-gray-950" : "bg-[#F8F3F3]"
+  } grid grid-cols-10 gap-4 p-4 rounded`}
+>
+  {Array.from({ length: 50 }).map((_, index) => (
+    <div
+      key={index}
+      className="w-8 h-8 bg-gray-300 rounded-md animate-pulse"
+    ></div>
+  ))}
+</div>
+                  
                 )}
               </div>
             </div>
@@ -329,4 +339,4 @@ const SeatBooking = () => {
   );
 };
 
-export default SeatBooking;
+export default WeakCalender;
