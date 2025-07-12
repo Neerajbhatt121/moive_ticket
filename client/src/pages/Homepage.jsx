@@ -40,19 +40,10 @@ const Homepage = () => {
       </div>
       <div
         className={`${
-          theme === "night" ? "bg-black text-gray-200" : "bg-white text-black"
+          theme === "night" ? "bg-black text-amber-100" : "bg-white text-black"
         } w-full h-full overflow-x-hidden`}
       >
         <HeroSection />
-
-        <div
-          className={`w-full h-8 mt-8 [&>*]:rounded-3xl [&>*]:w-[7rem]  [&>*]:ml-8 [&>*]:font-sans [&>*]:text-center [&>*]:pt-1 flex `}
-        >
-          <div className='bg-wheat text-black bg-gray-200'>Most Watch</div>
-          <div className='bg-black text-white'>High Rated</div>
-          <div className='bg-wheat text-black bg-gray-200'>Latest</div>
-        </div>
-
         <CurrentShows/>
 
         {movie.length > 0 && (
@@ -63,7 +54,7 @@ const Homepage = () => {
                 : "bg-white text-black"
             } w-full   mt-5 " id="main-container`}
           >
-            <div className='mb-8  text-2xl font-sans font-bold ml-5 '>
+            <div className='mb-8 text-1xl sm:text-2xl font-sans font-bold ml-5 '>
               Recently uploaded
             </div>
             <div className='w-[100%] pb-10 flex justify-start items-center gap-1 px-4 overflow-x-auto no-scrollbar'>
@@ -93,11 +84,7 @@ const Homepage = () => {
           </div>
         )}
 
-        <div className='mb-10  text-2xl font-sans font-bold ml-5 bg-transparent -top-5 z-99'
-          style={{
-            //background: linear-gradient(top, white 90%, rgba(255, 255, 255, 0) 100%);
-          }}
-        >
+        <div className='mb-10 text-1xl  sm:text-2xl font-sans font-bold ml-5 bg-transparent -top-5 z-99'>
           Recommended
         </div>
 

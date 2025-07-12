@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { default as Moive, default as movie } from "../modal/Moive.js";
 import ShowInstance from "../modal/ShowInstance.js";
 import Ticket from "../modal/Ticket.js";
@@ -58,15 +59,18 @@ export const GetInstanceForDay = async (req,res) => {
 // GET -- Get the instance for the particular moive within i upcoming 7 days
 export const GetInstanceForMoive = async (req,res) => {
     try {
-        const {movieId} = req.params;
+        const movieId = req.params.movId;
         const today = new Date;
         const next7Day = new Date;
         next7Day.setDate(today.getDate() + 7)
-
+            console.log("look Here ...............................", movieId , "........")
+            console.log(today, "   ", next7Day)
         const instance = await ShowInstance.find({
-            movie: movieId,
+            movie: new mongoose.Types.ObjectId(movieId),
             date: {$gte: today, $lte: next7Day}
         })
+
+        console.log("..................", instance)
 
         if(!instance){
             console.log("no moive instance found")

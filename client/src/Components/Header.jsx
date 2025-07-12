@@ -31,7 +31,9 @@ const Header = () => {
         theme === "night" ? "bg-black text-white " : "bg-white text-black "
       }  w-full h-[4rem] flex justify-between p-2 overflow-x-hidden items-center `}
     >
-      <div className='w-auto'>TEXMIX</div>
+      <div className='w-auto' 
+        onClick={()=> navigate('/')}
+      >TEXMIX</div>
 
       <div className='w-[75%] h-[95%] mx-2'>
         <SearchForm/>

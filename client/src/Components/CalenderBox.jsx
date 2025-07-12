@@ -1,27 +1,24 @@
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/Theme";
 
 const CalenderBox = () => {
   const navigate = useNavigate();
+  const {theme} = useTheme()
   return (
-    <div
+      <img
       onClick={() => {
         navigate(`/weakCalender`);
-        console.log(``);
       }}
-      className=" w-[14rem] h-[11rem] sm:w-[18rem] sm:h-[14rem]  flex flex-col mb-5 justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out"
-    >
-      <img
-        className="w-[100%] h-[100%]   object-cover overflow-y-hidden shadow-black shadow-2xl rounded-2xl"
-         src={"/weakCalender.png"}
+        className={`w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem]  ${
+              theme === "night"
+                ? "filter invert brightness-100"
+                : "filter grayscale-0 shadow-black  shadow-2xl"
+            }  object-cover rounded-2xl`}
+         src={"/calenderIcon.png"}
         alt="#"
         srcSet=""
       />
-      <div className=" w-[14rem] sm:w-[16rem] bottom-8  flex flex-col  p-0 ">
-        <div className="z-999 font-sans   font-bold  text-sm sm:text-2xl ">
-          {}
-        </div>
-      </div>
-    </div>
+   // </div>
   );
 };
 

@@ -10,6 +10,7 @@ const WeakCalender  = () => {
   const [instaceDate, setInstanceDate] = useState(0);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [instanceRes, setInstanceRes] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [liveLockedSeats, setLiveLockedSeats] = useState([]);
   const { auth } = useAuth();
   const { theme } = useTheme();
@@ -109,6 +110,7 @@ const WeakCalender  = () => {
   useEffect(() => {
     GettingInstance();
     setSelectedSeats([]);
+    timer()
     console.log("error",instaceDate, instaceSlot)
   }, [instaceDate, instaceSlot]);
 
@@ -137,6 +139,14 @@ const WeakCalender  = () => {
     }
   };
 
+  const timer = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+        setIsLoading(false);
+        console.log("offfffff", isLoading)
+      }, 2000);
+  }
+
   return (
     <div
       className={` ${
@@ -160,7 +170,7 @@ const WeakCalender  = () => {
           {dates.map((m, i) => (
             <div
               key={i}
-              className={`w-17 aspect-square m-1 rounded-2xl text-[10px] sm:text-[14px] font-medium text-gray-700 
+              className={`w-17 aspect-square m-1 rounded-2xl text-[10px] sm:text-[14px] font-medium  
                 ${
                   theme === "light"
                     ? i === instaceDate
@@ -185,18 +195,13 @@ const WeakCalender  = () => {
         <div className="w-full flex flex-col flex-wrap items-center  gap-5 ">
           <div className="">
             <span>
-              show timing :-{" "} 
-              {instanceRes?.instance &&
-              instanceRes.instance.length > instaceSlotIdx &&
-              instanceRes.instance[instaceSlotIdx]?.slotTime 
-                ? instanceRes.instance[instaceSlotIdx].slotTime
-                : "No Show Found"}
+              show timing :-{instanceRes?.slotTime ? instanceRes?.slotTime : "No instnce found"} 
             </span>
             <div className="w-full flex justify-center">
               {slot.map((m, i) => (
                 <div
                   key={i}
-                  className={`w-17 aspect-video m-2 rounded-[14px] text-[8px] font-medium text-gray-700 
+                  className={`w-15 sm:w-17 aspect-video m-1 rounded-[14px] text-[10px] font-medium  
                 ${
                   theme === "light"
                     ? i == instaceSlotIdx
@@ -253,7 +258,7 @@ const WeakCalender  = () => {
               <div
                 className={` ${
                   theme === "night" ? "bg-gray-950 " : "bg-[#F8F3F3]"
-                } grid grid-cols-10 gap-4  p-4 rounded `}
+                } grid grid-cols-10 gap-4  p-4 rounded`}
               >
                 {instanceRes? (
                     instanceRes.bookedSeats?.map((s, index) => {
@@ -279,7 +284,7 @@ const WeakCalender  = () => {
                             handleSeatClick(index, booked[index].seatNumber);
                           }
                         }}
-                        className={`w-8 h-8 rounded-md cursor-pointer text-center
+                        className={`w-8 h-8 rounded-md cursor-pointer text-center 
                             ${
                               booked[index].isBooked
                                 ? "border-2 border-red-400 text-red-400 cursor-not-allowed"
@@ -296,21 +301,15 @@ const WeakCalender  = () => {
                     );
                   })
                 ) : (
-                  // 
-                  <div
-  className={`${
-    theme === "night" ? "bg-gray-950" : "bg-[#F8F3F3]"
-  } grid grid-cols-10 gap-4 p-4 rounded`}
->
-  {Array.from({ length: 50 }).map((_, index) => (
-    <div
-      key={index}
-      className="w-8 h-8 bg-gray-300 rounded-md animate-pulse"
-    ></div>
-  ))}
-</div>
-                  
-                )}
+                  isLoading ?  
+                  Array.from({ length: 50 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="w-8 h-8 bg-gray-300 rounded-md animate-pulse"
+                      ></div>
+                      )) : 
+                      <p className="w-[80vw] bg-red-500">Not Found Instance</p>
+                )} 
               </div>
             </div>
           </div>

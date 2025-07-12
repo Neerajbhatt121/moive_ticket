@@ -10,6 +10,8 @@ router.post("/createInstance", requireSignIn, isAdmin, CreateShowInstances);
 // GET -- Getting all instance of that day
 router.get("/getInstance/",  GetInstanceForDay);
 
+router.get("/getInstance/:movId",  GetInstanceForMoive);
+
 router.get("/getInstance/:date/:movId",  GetInstanceForMoiveEachDay);
 
 router.get("/getInstanceWeak/:date",  GetThisWeakShows);

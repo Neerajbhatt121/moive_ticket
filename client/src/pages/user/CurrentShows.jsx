@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import CalenderBox from '../../Components/CalenderBox'
 import { useTheme } from '../../context/Theme'
 
 
@@ -36,16 +37,17 @@ const CurrentShows = () => {
                 : "bg-white text-black"
             } w-full   mt-10 " id="main-container`}
           >
-            <div className='  text-2xl font-sans font-bold ml-5 '>
-              This weak shows
+            <div className=' text-1xl sm:text-2xl font-sans font-bold ml-5 '>
+              This weak calender
             </div>
             <div className='w-[100%] pb-10 flex justify-start items-center gap-1 px-4 overflow-x-auto no-scrollbar'>
+              <CalenderBox/>
               {currMov.map((m, i) => (
                 <div
                   key={i}
                   onClick={() =>{ navigate(`/booking/${m.movie}/${m.date.split("T")[0]}/${m.slotTime}`)
                      console.log(`${m.movie}/${m.date}/${m.slotTime})}`)}}
-                  className=' w-[14rem] h-[11rem] sm:w-[18rem] sm:h-[14rem]  flex flex-col mb-5 justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
+                  className=' w-[10rem] h-[8rem] sm:w-[14rem] sm:h-[10rem]  flex flex-col mb-5 justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
                 >
                   <img
                     className='w-[100%] h-[100%]   object-cover overflow-y-hidden shadow-black shadow-2xl rounded-2xl'

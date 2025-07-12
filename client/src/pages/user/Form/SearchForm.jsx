@@ -17,7 +17,7 @@ const SearchForm = () => {
             console.log(result.data)
             setValues({...values, result:result.data})
             console.log(values, "sssssssssssssssss")
-            navigate('search-page')
+            navigate('/search-page')
         } catch (error) {
             console.log(error)
         }
