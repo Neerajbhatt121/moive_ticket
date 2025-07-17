@@ -47,7 +47,11 @@ export const createMoive = async (req,res) => {
 // Get --  Getting the movie
 export const GetAllMoive = async (req,res) => {
     try {
+        const page = req.params.page
+        const total = 6
         const movie = await Movie.find({})
+            .skip((page-1)*total)
+            .limit(total)
         if(!movie) res.status(500).send({
             success: false,
             message: "List is empty"

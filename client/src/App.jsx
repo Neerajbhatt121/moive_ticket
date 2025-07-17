@@ -13,6 +13,7 @@ import Homepage from './pages/Homepage'
 import MoiveDetails from './pages/user/MoiveDetails'
 import SearchResultpage from './pages/user/SearchResultpage'
 import SeatBooking from './pages/user/SeatBooking'
+import Tickets from './pages/user/Tickets'
 import WeakCalender from './pages/user/WeakCalander'
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/oauth-success' element={<OauthSuccess/>}/>
           <Route path='/search-page' element={<SearchResultpage/>}/>
           <Route path='/weakCalender' element={<WeakCalender/>}/>
+          <Route path='/tickets' element={<Tickets/>}/>
           
 
 

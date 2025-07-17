@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { default as Moive, default as movie } from "../modal/Moive.js";
 import ShowInstance from "../modal/ShowInstance.js";
-import Ticket from "../modal/Ticket.js";
+import Tickets from '../modal/Ticket.js';
 import user from "../modal/User.js";
 import { InvoiceGenerater } from "../service/Invoice.js";
 import sendMail from "../service/sendmail.js";
@@ -328,7 +328,7 @@ export const PostBookSeat = async (req, res) => {
           }
 
         const ticketResult = await ticketGenerated({
-            userId,
+            User,
             showId,
             seatNumber,
             price : show.price * seatNumber.length
@@ -363,13 +363,6 @@ export const PostBookSeat = async (req, res) => {
             filePath: invoiceGen.filePath,
             fileName: invoiceGen.fileName
         })
-
-        // if(!mailed.success){
-        //     return res.status(200).send({
-        //         success: false,
-        //         message: "mailed can't sended"
-        //     })   
-        // }
         
         await show.save();
         console.log("invoiceGen", invoiceGen)
@@ -391,7 +384,7 @@ export const PostBookSeat = async (req, res) => {
 
 
 // POST -- Generating the Ticket
-export const ticketGenerated = async ({ userId, showId, seatNumber, price }) => {
+export const ticketGenerated = async ({ User, showId, seatNumber, price }) => {
     try {
         console.log()
         if(seatNumber.length < 0) 
@@ -399,15 +392,15 @@ export const ticketGenerated = async ({ userId, showId, seatNumber, price }) => 
                 success:false,
                 message: "seats are empty"
         })
-
-        const newTicket = new Ticket({
-            user: userId,
-            show: showId,
+        const newTicket = new Tickets({
+            userId: User._id,
+            showId: showId,
             seatNumbers: seatNumber,
             price,
         });
 
-        await newTicket.save();
+        console.log("Ticket before saving:", newTicket);
+         await newTicket.save();
         console.log("ticket generated logs")
         return { success: true, ticket: newTicket };
     } catch (error) {

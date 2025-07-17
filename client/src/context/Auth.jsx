@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
           password: userData.password,
         }
       )
-      console.log("response", response)
+      console.log("response  >>>>>>>", response)
 
       if (response && response.data.success) {
         console.log("response")

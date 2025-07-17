@@ -39,14 +39,14 @@ const Header = () => {
         <SearchForm/>
       </div>
 
-      <div className=' w-auto flex justify-evenly items-center text-gray-700 bg-gray-400 p-1.5 px-4 gap-2 rounded-3xl shadow-xl'>
+      <div className=' w-auto flex justify-evenly items-center text-gray-700 bg-gray-400 p-1 sm:p-1.5  px-1 sm:px-4 gap-2 rounded-3xl shadow-xl'>
         <div
           onClick={() => {
             SetIsnight(!isnight)
             console.log(theme)
             setTheme(theme === "light" ? "night" : "light")
           }}
-          className='cursor-default'
+          className='cursor-default sm:block hidden'
         >
           {isnight ? (
             <RiMoonClearFill className='size-6' />
@@ -93,6 +93,7 @@ const Header = () => {
             <li
               onClick={(e) => {
                 e.stopPropagation()
+                navigate('/tickets')
               }}
             >
               <LuTicketSlash /> myTickets
@@ -105,6 +106,20 @@ const Header = () => {
             >
               <RiLogoutCircleRLine /> Logout
             </li>
+            <li
+          onClick={() => {
+            SetIsnight(!isnight)
+            console.log(theme)
+            setTheme(theme === "light" ? "night" : "light")
+          }}
+          className='cursor-default sm:block hidden'
+        >
+          {isnight ? (
+            <RiMoonClearFill className='size-6' />
+          ) : (
+            <IoSunny className='size-6' />
+          )} Switch mode
+        </li>
           </ul>
         </div>
       ) : (

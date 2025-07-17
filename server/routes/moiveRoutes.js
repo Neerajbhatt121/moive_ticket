@@ -10,7 +10,7 @@ const router = express.Router()
 router.post("/createmoive",requireSignIn, isAdmin, upload.single('posterURL') ,createMoive);
 
 // Getting all moives
-router.get('/getAllmoives', GetAllMoive);
+router.get('/getAllmoives/:page', GetAllMoive);
 
 // Getting movie by id
 router.get('/getMovieById/:movieId', GetAllMoiveById);

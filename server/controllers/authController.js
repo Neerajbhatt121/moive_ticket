@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { comparedPassword, hashedpassword } from "../helper/authHelper.js";
-import userModal from "../modal/User.js";
+import { default as User, default as userModal } from "../modal/User.js";
 
 // Controller for Registration
 export const registerController = async (req, res) => {
@@ -118,3 +118,19 @@ export const loginController = async (req, res) => {
 export const testController = async (req, res) => {
   res.send("protected routes");
 };
+
+export const findUserByEmail = async (req,res) => {
+  const mail = req.params.umail;
+  console.log("................>>>",mail)
+  try {
+    const response = await User.find({
+      email: mail})
+    res.status(200).send({
+      success:true,
+      response,
+      mail
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}

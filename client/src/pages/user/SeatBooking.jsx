@@ -9,7 +9,6 @@ import { socket } from "../socket"
 const SeatBooking = () => {
   // const movId = useParams();
   const [resMov, setResMov] = useState()
-  const [instaceDate, setInstanceDate] = useState(0)
   const [selectedSeats, setSelectedSeats] = useState([])
   const [instanceRes, setInstanceRes] = useState()
   const [liveLockedSeats, setLiveLockedSeats] = useState([])
@@ -21,7 +20,6 @@ const SeatBooking = () => {
   const [instacneList, setInstanceList] = useState([])
 
   const dates = []
-  const slot = ["morning", "afternoon", "evening", "night"]
 
   for (let i = 0; i < 7; i++) {
     const date = new Date()
@@ -159,24 +157,24 @@ const SeatBooking = () => {
   return (
     <div
       className={` ${
-        theme === "night" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
-      } h-[100vh] p-4 flex items-center justify-center `}
+        theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
+      } h-auto min-h-[100vh] w-screen p-2 sm:p-4 flex items-center justify-center `}
     >
       <Toaster />
       <div
         className={`  ${
-          theme === "night" ? "bg-black text-white" : "bg-gray-100 text-black"
+          theme === "night" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
         } w-full h-[90%] flex flex-col justify-around items-center  rounded-2xl shadow-2xl shadow-black`}
       >
         <div
           className={`${
             theme === "night" ? " text-white" : " text-black"
-          } text-3xl `}
+          } text-2xl sm:text-3xl mb-15`}
         >
           🎥 Choose the Date:
         </div>
 
-        <div className='w-full flex flex-col flex-wrap items-center  gap-5 '>
+        <div className='w-full flex flex-col flex-wrap items-center  gap-5 mb-15 '>
           <div className=''>
             <span>
               show timing :-
@@ -185,7 +183,7 @@ const SeatBooking = () => {
                 : "No instnce found"}
             </span>
 
-            <div className='w-full flex justify-center'>
+            <div className='w-full flex justify-center flex-wrap'>
               {instacneList?.map((m, i) => (
                 <div
                   key={i}
@@ -197,7 +195,7 @@ const SeatBooking = () => {
                       : "bg-gray-100 shadow-2xl"
                     : i == instaceSlotIdx
                     ? "border-purple-400 border-2 text-purple-500"
-                    : "border-gray-400 border-2 text-gray-100 shadow-2xl"
+                    : "border-gray-400 border-2 text-white shadow-2xl"
                 }
               flex flex-col justify-center items-center`}
                   onClick={() => {
@@ -247,37 +245,28 @@ const SeatBooking = () => {
             </div>
 
             <div className='flex flex-col items-center mt-10'>
-              <div className='w-[60%] h-5 bg-gray-400 rounded-t-full  text-center flex justify-center'></div>
+              <div className='w-[60%] h-5 bg-gray-500 rounded-t-full  text-center flex justify-center'>Screen</div>
               <div
                 className={` ${
                   theme === "night" ? "bg-gray-950 " : "bg-[#F8F3F3]"
-                } grid grid-cols-10 gap-4  p-4 rounded `}
+                } grid grid-cols-10 gap-3 sm:gap-4 sm:p-2 rounded `}
               >
                 {instanceRes ? (
                   instanceRes?.bookedSeats?.map((s, index) => {
                     const booked = instanceRes.bookedSeats
-                    // const isBooked = booked.includes(index)
-                    const isSelected = selectedSeats.includes(
-                      booked[index].seatNumber
-                    )
-
-                    const isLiveLocked = liveLockedSeats.includes(
-                      booked[index].seatNumber
-                    )
+                   // const isBooked = booked.includes(index)
+                    const isSelected = selectedSeats.includes(s.seatNumber)
+                    const isLiveLocked = liveLockedSeats.includes(s.seatNumber)
 
                     return (
                       <div
                         key={index}
                         onClick={() => {
-                          if (
-                            booked[index].isBooked == false &&
-                            !liveLockedSeats.includes(booked[index].seatNumber)
-                          ) {
-                            // booked.includes
-                            handleSeatClick(index, booked[index].seatNumber)
-                          }
+                           if (!s.isBooked && !isLiveLocked) {
+                              handleSeatClick(index, s.seatNumber)
+                            }
                         }}
-                        className={`w-8 h-8 rounded-md cursor-pointer text-center
+                        className={`w-7 h-7 rounded-md cursor-pointer text-center
                             ${
                               booked[index].isBooked
                                 ? "border-2 border-red-400 text-red-400 cursor-not-allowed"
@@ -289,7 +278,7 @@ const SeatBooking = () => {
                             }
                           `}
                       >
-                        {booked[index].seatNumber}
+                        {s.seatNumber}
                       </div>
                     )
                   })

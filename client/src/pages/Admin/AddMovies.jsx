@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from "react"
+import toast from 'react-hot-toast'
 
 const AddMovies = () => {
   const [name, setName] = useState("")
@@ -32,6 +33,13 @@ const AddMovies = () => {
       if (!response) {
         console.log("can't uploaded movie")
       }
+      toast.success("Added Successfully")
+      setName("")
+      setDescription("")
+      setDuration("")
+      setPosterURL("")
+      setPrice("")
+      setGenre("")
     } catch (error) {
       console.log("xxxxxxxxxxxxxxxxxxxxxx", error)
     }

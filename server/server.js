@@ -10,6 +10,7 @@ import path from 'path';
 import { Server } from 'socket.io';
 import instanceRoutes from '../server/routes/instanceRoutes.js';
 import moiveRoutes from "../server/routes/moiveRoutes.js";
+import ticketsRoutes from '../server/routes/ticketsRoutes.js';
 import { connectDB } from './config/db.js';
 import "./config/passport.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -79,6 +80,7 @@ app.use(passport.session())     // to maintain the session
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/moive', moiveRoutes)
 app.use('/api/v1/instance', instanceRoutes)
+app.use('/api/v1/tickets', ticketsRoutes)
 
 app.get("/", (req,res) => {
     res.send({

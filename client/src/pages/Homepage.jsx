@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import toast, { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import HeroSection from "../Components/HeroSection"
 import Layout from "../Components/Layout"
@@ -12,26 +12,43 @@ const Homepage = () => {
   const [movie, setMovie] = useState([])
   const navigate = useNavigate()
   const { theme } = useTheme()
+  const [page, setPage] = useState(1);
+  const [loading, setIsloading] = useState(false);
 
   const getMoive = async () => {
     try {
-      const res = await axios.get("/api/v1/moive/getAllmoives")
-      setMovie(res.data.movie)
-      console.log(res.data.movie)
-      console.log(movie)
-      toast.success("toasted")
+      console.log("page  ...." , page)
+      const res = await axios.get(`/api/v1/moive/getAllmoives/${page}`)
+      setMovie(prev => [...prev, ...res.data.movie])
+      setIsloading(false)
     } catch (error) {
       console.log(error)
     }
   }
 
-  useEffect(() => {
-    getMoive()
-  }, [])
 
   useEffect(() => {
     console.log("Updated movie list:", movie)
   }, [movie])
+
+  // handling loadmore
+  useEffect(() => {
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+      setPage((prev) => prev + 1);
+      setIsloading(true)
+     console.log("Reached to end..........")
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    getMoive()
+  }, [page])
+  
 
   return (
     <Layout title={"All movie and shows"}>
@@ -127,6 +144,12 @@ const Homepage = () => {
                 </div>
               ))}
             </div>
+              <div className="flex justify-center items-center">
+                {loading &&  
+                    <div className="animate-spin inline-block size-10 border-3 border-current border-t-transparent text-gray-400 rounded-full" role="status" aria-label="loading">
+                      <span className="sr-only">Loading...</span>
+                    </div>}
+              </div>
           </div>
         )}
       </div>
