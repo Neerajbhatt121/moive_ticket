@@ -157,7 +157,7 @@ const WeakCalender  = () => {
       <div
         className={`  ${
           theme === "night" ? "bg-black text-white" : "bg-gray-100 text-black"
-        } w-full h-[90%] flex flex-col justify-around items-center  rounded-2xl shadow-2xl shadow-black`}
+        } w-full h-[95%] flex flex-col justify-evenly items-center  rounded-2xl shadow-2xl shadow-black`}
       >
         <div
           className={`${

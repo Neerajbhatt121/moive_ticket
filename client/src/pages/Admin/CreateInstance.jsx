@@ -1,12 +1,15 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import axios from "axios"
+import { useEffect, useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
+import Select from "react-select"
 
 const CreateInstance = () => {
   const [movies, setMovies] = useState([])
   const [seletedMovie, setSelectedMovie] = useState()
   const [selectDate, setSelectedDate] = useState()
   const [slotetime, setSlottime] = useState()
+  const [page, setpage] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
 
   const dates = []
   for (let i = 0; i < 7; i++) {
@@ -17,71 +20,108 @@ const CreateInstance = () => {
 
   const getMoive = async () => {
     try {
-      const res = await axios.get("/api/v1/moive/getAllmoives")
-      setMovies(res.data.movie)
+      setIsLoading(true)
+      const res = await axios.get(`/api/v1/moive/getAllmoives/${page}`)
+      setMovies((prev) => [...prev, ...res.data.movie])
       console.log(res.data.movie)
       console.log(movies)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   useEffect(() => {
     getMoive()
-    console.log(movies)
-  }, [])
+  }, [page])
+
+  // useEffect(() => {
+  //   getMoive()
+  //   console.log(movies)
+  // }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const date = dates[selectDate]
-    console.log(seletedMovie, date.toISOString().split("T")[0], slotetime)
+    console.log(
+      "alll......",
+      seletedMovie.value,
+      date.toISOString().split("T")[0],
+      slotetime
+    )
 
-    const preInsanse = await axios.get(`http://localhost:5000/api/v1/instance/getInstance/${date.toISOString().split("T")[0]}/${seletedMovie}/${slotetime}`)
+    const preInsanse = await axios.get(
+      `http://localhost:5000/api/v1/instance/getInstance/${
+        date.toISOString().split("T")[0]
+      }/${seletedMovie.value}/${slotetime}`
+    )
 
     if (preInsanse?.data && preInsanse?.data?.instance?.length > 0) {
-        toast.error("Slot already booked");
-        console.log("existing instance found");
-    return;
-}
+      toast.error("Slot already booked")
+      console.log("existing instance found")
+      return
+    }
 
-    const instance = await axios.post(`http://localhost:5000/api/v1/instance/createInstance`,{
-        movie:seletedMovie,
-        date:date.toISOString().split("T")[0],
-        slotTime:slotetime
-    })
+    const instance = await axios.post(
+      `http://localhost:5000/api/v1/instance/createInstance`,
+      {
+        movie: seletedMovie.value,
+        date: date.toISOString().split("T")[0],
+        slotTime: slotetime,
+      }
+    )
 
-    if(instance){
+    if (instance) {
       console.log(instance)
     }
 
-    if(instance?.data?.success === true){
+    if (instance?.data?.success === true) {
       toast.success("Instance Created Successfully")
     } else {
       toast.error("Instance not Created Successfully")
     }
   }
 
+  const movieOptions = movies.map((movie) => ({
+    value: movie._id,
+    label: movie.name,
+    movieDetails: movie,
+  }))
+
   return (
     <div className='w-full h-full bg-white flex flex-col justify-center items-center mx-auto rounded-2xl'>
-      <div><Toaster/></div>
+      <div>
+        <Toaster />
+      </div>
       <h2 className='text-2xl font-bold mb-6'>🎬 Create Show Instance</h2>
 
       <form onSubmit={handleSubmit} className='flex flex-col gap-6 '>
         <label htmlFor=''>Select Movie</label>
-        <select
-          name=''
-          id=''
+
+        <Select
+          options={movieOptions}
           value={seletedMovie}
-          onChange={(e) => setSelectedMovie(e.target.value)}
-          className='w-full p-2 border border-gray-500 rounded'
-        >
-          <option value=''>--- Select a movie ---</option>
-          {movies?.map((movie) => (
-            <option key={movie._id} value={movie._id}>
-              {movie.name}
-            </option>
-          ))}
-        </select>
+          onChange={(option) => setSelectedMovie(option)}
+          placeholder='Select a Movie'
+          onMenuScrollToBottom={() => {
+            if (!isLoading) {
+              setpage((prev) => prev + 1)
+            }
+            console.log("Reache To End.......")
+          }}
+          isLoading={isLoading}
+          menuPortalTarget={document.body}
+          styles={{
+            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+            menuList: (base) => ({
+              ...base,
+              maxHeight: 200,
+              overflowY: "auto",
+            }),
+          }}
+          className='text-black'
+        />
 
         {/* date selection */}
 

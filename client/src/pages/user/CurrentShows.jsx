@@ -29,7 +29,7 @@ const CurrentShows = () => {
 
   return (
     <div>
-        {currMov.length > 0 && (
+        {currMov.length >= 0 && (
           <div
             className={`${
               theme === "night"
@@ -40,17 +40,17 @@ const CurrentShows = () => {
             <div className=' text-1xl sm:text-2xl font-sans font-bold ml-5 '>
               This weak calender
             </div>
-            <div className='w-[100%] pb-10 flex justify-start items-center gap-1 px-4 overflow-x-auto no-scrollbar'>
+            <div className='w-[100%] pb-5 flex justify-start items-center gap-1 px-4 overflow-x-auto no-scrollbar'>
               <CalenderBox/>
               {currMov.map((m, i) => (
                 <div
                   key={i}
                   onClick={() =>{ navigate(`/booking/${m.movie}/${m.date.split("T")[0]}/${m.slotTime}`)
                      console.log(`${m.movie}/${m.date}/${m.slotTime})}`)}}
-                  className=' w-[10rem] h-[8rem] sm:w-[14rem] sm:h-[10rem]  flex flex-col mb-5 justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
+                  className=' w-[10rem] h-[8rem] sm:w-[14rem] sm:h-[10rem]  flex flex-col  justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
                 >
                   <img
-                    className='w-[100%] h-[100%]   object-cover overflow-y-hidden shadow-black shadow-2xl rounded-2xl'
+                    className='w-[100%] h-[100%]   object-cover overflow-y-hidden  rounded-2xl'
                     src={m.posterURL}
                     alt='#'
                     srcSet=''

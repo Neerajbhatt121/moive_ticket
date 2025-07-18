@@ -10,6 +10,7 @@ import CurrentShows from "./user/CurrentShows"
 
 const Homepage = () => {
   const [movie, setMovie] = useState([])
+  const [movieLatest, setMovieLates] = useState([])
   const navigate = useNavigate()
   const { theme } = useTheme()
   const [page, setPage] = useState(1);
@@ -25,6 +26,21 @@ const Homepage = () => {
       console.log(error)
     }
   }
+
+  const getMoiveLatest = async () => {
+    try {
+      console.log("page  ...." , page)
+      const res = await axios.get(`/api/v1/moive/getAllmoivesLatest`)
+      setMovieLates(res.data.movie)
+      setIsloading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getMoiveLatest()
+  },[])
 
 
   useEffect(() => {
@@ -74,15 +90,15 @@ const Homepage = () => {
             <div className='mb-8 text-1xl sm:text-2xl font-sans font-bold ml-5 '>
               Recently uploaded
             </div>
-            <div className='w-[100%] pb-10 flex justify-start items-center gap-1 px-4 overflow-x-auto no-scrollbar'>
-              {movie.map((m, i) => (
+            <div className='w-[100%] pb-5 flex justify-start items-center  px-4 overflow-x-auto no-scrollbar'>
+              {movieLatest.map((m, i) => (
                 <div
                   key={i}
                   onClick={() => navigate(`/moiveDetails/${m._id}`)}
-                  className=' w-[14rem] h-[11rem] sm:w-[18rem] sm:h-[14rem]  flex flex-col mb- justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
+                  className=' w-[12rem] h-[10rem] sm:w-[18rem] sm:h-[14rem]  flex flex-col justify-between p-1 transform hover:scale-105 transition-transform duration-300 ease-in-out'
                 >
                   <img
-                    className='w-[100%] h-[100%]   object-cover overflow-y-hidden shadow-black shadow-2xl rounded-2xl'
+                    className='w-[100%] h-[100%]   object-cover overflow-y-hidden  rounded-[4px]'
                     src={m.posterURL}
                     alt='#'
                     srcSet=''
@@ -101,7 +117,7 @@ const Homepage = () => {
           </div>
         )}
 
-        <div className='mb-10 text-1xl  sm:text-2xl font-sans font-bold ml-5 bg-transparent -top-5 z-99'>
+        <div className='mb-5 text-1xl  sm:text-2xl font-sans font-bold ml-5 bg-transparent -top-5 z-99'>
           Recommended
         </div>
 

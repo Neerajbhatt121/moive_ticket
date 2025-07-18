@@ -126,9 +126,9 @@ export const GetThisWeakShows = async (req,res) => {
         const uniqueMoviesMap = new Map();
 
 result.forEach((item) => {
-  const movieId = item.movie.toString(); // convert ObjectId to string for consistency
+  const movieId = item.movie.toString();
   if (!uniqueMoviesMap.has(movieId)) {
-    uniqueMoviesMap.set(movieId, item); // store the first instance of the movie
+    uniqueMoviesMap.set(movieId, item); 
   }
 });
 
@@ -137,14 +137,14 @@ const filtered = Array.from(uniqueMoviesMap.values());
         console.log("moviId currrrrrrrrrr", filtered)
         return res.status(200).send({
             success: true,
-            message: "movie instance founded",
+            message: "movie instance founded .....",
             result,
             filtered
         })
 
     } catch (error) {
         console.log(error)
-        return res.statumovies(500).send({
+        return res.status(500).send({
             success: false,
             message: "Error while finding the thsi weak shows"
         })

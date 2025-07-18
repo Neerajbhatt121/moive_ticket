@@ -48,10 +48,35 @@ export const createMoive = async (req,res) => {
 export const GetAllMoive = async (req,res) => {
     try {
         const page = req.params.page
-        const total = 6
+        const total = 10
         const movie = await Movie.find({})
             .skip((page-1)*total)
             .limit(total)
+        if(!movie) res.status(500).send({
+            success: false,
+            message: "List is empty"
+        })
+        return res.status(200).send({
+            success: true,
+            message: "movie getted",
+            movie
+        })
+    } catch (error) {
+        console.log("error while getting the movies", error)
+        return res.status(500).send({
+            success: false,
+            message: "Error while getting the movies"
+        })
+    }
+}
+
+export const GetAllMoiveList = async (req,res) => {
+    try {
+        // const page = req.params.page
+        // const total = 6
+        const movie = await Movie.find({})
+            .limit(8)
+            .sort({createdAt:-1})
         if(!movie) res.status(500).send({
             success: false,
             message: "List is empty"

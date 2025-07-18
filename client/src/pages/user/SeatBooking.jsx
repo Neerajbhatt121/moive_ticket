@@ -133,6 +133,7 @@ const SeatBooking = () => {
           userId: userId,
         }
       )
+      if(book) toast.success("Check your mail for recipt/ticket")
       console.log("book", book)
     } catch (error) {
       console.log(error)
@@ -158,13 +159,13 @@ const SeatBooking = () => {
     <div
       className={` ${
         theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
-      } h-auto min-h-[100vh] w-screen p-2 sm:p-4 flex items-center justify-center `}
+      }  h-[100vh] w-screen p-2 sm:p-4 flex items-center justify-center `}
     >
       <Toaster />
       <div
         className={`  ${
           theme === "night" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
-        } w-full h-[90%] flex flex-col justify-around items-center  rounded-2xl shadow-2xl shadow-black`}
+        } w-full h-[90%] flex flex-col justify-evenly items-center  rounded-2xl shadow-2xl shadow-black`}
       >
         <div
           className={`${
@@ -244,7 +245,7 @@ const SeatBooking = () => {
               </div>
             </div>
 
-            <div className='flex flex-col items-center mt-10'>
+            <div className='flex flex-col items-center mt-15'>
               <div className='w-[60%] h-5 bg-gray-500 rounded-t-full  text-center flex justify-center'>Screen</div>
               <div
                 className={` ${
@@ -266,7 +267,7 @@ const SeatBooking = () => {
                               handleSeatClick(index, s.seatNumber)
                             }
                         }}
-                        className={`w-7 h-7 rounded-md cursor-pointer text-center
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md cursor-pointer text-center
                             ${
                               booked[index].isBooked
                                 ? "border-2 border-red-400 text-red-400 cursor-not-allowed"
@@ -292,7 +293,7 @@ const SeatBooking = () => {
           </div>
 
           <div
-            className={`  w-full flex  justify-center md:justify-center lg:justify-start `}
+            className={`  w-full flex justify-center md:justify-center lg:justify-start lg:pl-25  mt-10`}
           >
             <div
               onClick={() => {
