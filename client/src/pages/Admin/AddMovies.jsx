@@ -26,7 +26,7 @@ const AddMovies = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/moive/createmoive",
+        "/api/v1/moive/createmoive",
         formData
       )
       console.log("api called")

@@ -29,12 +29,9 @@ const SeatBooking = () => {
 
   const getDetails = async () => {
     try {
-      console.log(movId.movId)
-
       const response = await axios.get(
-        `http://localhost:5000/api/v1/moive/getMovieById/${movId}`
+        `/api/v1/moive/getMovieById/${movId}`
       )
-      // console.log("data here", response.data)
       setResMov(response.data.movie)
       console.log(resMov)
     } catch (error) {
@@ -93,7 +90,7 @@ const SeatBooking = () => {
   const GettingInstance = async (date, slot) => {
     try {
       // const mMdate = Mdate? Mdate : [instaceSlotIdx]
-      console.log("movid", movId, date, instaceSlot)
+      console.log("movid,.........", movId, date, instaceSlot)
       const instance = await axios.get(
         `/api/v1/instance/getInstance/${date}/${movId}/${slot}`
       )
@@ -126,7 +123,7 @@ const SeatBooking = () => {
         return
       }
       const book = await axios.post(
-        "http://localhost:5000/api/v1/instance/bookMovie",
+        "/api/v1/instance/bookMovie",
         {
           showId: showId,
           seatNumber: seatnumber,
@@ -159,7 +156,7 @@ const SeatBooking = () => {
     <div
       className={` ${
         theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
-      }  h-[100vh] w-screen p-2 sm:p-4 flex items-center justify-center `}
+      }  h-auto w-screen p-2 sm:p-4 flex items-center justify-center `}
     >
       <Toaster />
       <div

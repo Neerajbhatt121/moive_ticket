@@ -13,11 +13,11 @@ const Header = () => {
   const { auth, logout } = useAuth()
   const { theme, setTheme } = useTheme()
   const ProfileImage = auth?.user?.profilePic ?? profileImg
-  console.log(ProfileImage)
   const [isnight, SetIsnight] = useState(0)
   const [menu, setMenu] = useState(1)
   const navigate = useNavigate ();
   console.log(auth?.user?.role)
+  console.log("Profile img here",ProfileImage)
 
 
   const handlelogout = () => {
@@ -57,7 +57,7 @@ const Header = () => {
         {auth?.token ? (
           <img
             className='w-7 h-7 rounded-full'
-            src={ProfileImage}
+            src={auth?.user?.profilePic}
             alt={profileImg}
             onClick={() => {
               setMenu(!menu)

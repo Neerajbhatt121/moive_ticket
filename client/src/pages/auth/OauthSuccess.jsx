@@ -13,8 +13,6 @@ const OauthSuccess = () => {
         const name = searchParms.get('name')
         const profilePic = searchParms.get('profilePic')
 
-        console.log("token rrrrrrrrrrrrrr",searchParms)
-
         if(token !== null){
             const user = {name, email, profilePic};
 

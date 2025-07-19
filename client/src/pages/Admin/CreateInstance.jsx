@@ -64,7 +64,7 @@ const CreateInstance = () => {
     }
 
     const instance = await axios.post(
-      `http://localhost:5000/api/v1/instance/createInstance`,
+      `/api/v1/instance/createInstance`,
       {
         movie: seletedMovie.value,
         date: date.toISOString().split("T")[0],

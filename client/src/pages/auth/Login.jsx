@@ -79,7 +79,7 @@ const Login = () => {
         <Link
           className="w-85 h-10 bg-black text-white flex items-center justify-center gap-2 rounded-2xl"
           to={
-            "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&scope=profile%20email&client_id=910239328277-ugmh5k5i19r1jftmqtqm2dd4u6c0cmn2.apps.googleusercontent.com&service=lso&o2v=2&flowName=GeneralOAuthFlow"
+           "https://moive-ticket-1.onrender.com/api/v1/auth/google"
           }
         >
           <FcGoogle className="text-xl" />

@@ -30,7 +30,7 @@ const WeakCalender  = () => {
   const getDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/moive/getMovieById/${movId ? movId : null}`,
+        `/api/v1/moive/getMovieById/${movId ? movId : null}`,
       );
       // console.log("data here", response.data)
       setResMov(response.data.movie);
@@ -126,7 +126,7 @@ const WeakCalender  = () => {
         return;
       }
       const book = await axios.post(
-        "http://localhost:5000/api/v1/instance/bookMovie",
+        "/api/v1/instance/bookMovie",
         {
           showId: showId,
           seatNumber: seatnumber,

@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
     try {
       console.log("started here", userData)
       const response = await axios.post(
-        `http://localhost:5000/api/v1/auth/login`,
+        `/api/v1/auth/login`,
         {
           email: userData.email,
           password: userData.password,

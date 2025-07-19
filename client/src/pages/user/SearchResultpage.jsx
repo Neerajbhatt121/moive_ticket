@@ -17,7 +17,7 @@ const SearchResultpage = () => {
   const getSimilar = async () => {
     console.log("similar", similer)
     try {
-        const resSimilar = await axios.get(`http://localhost:5000/api/v1/moive/getSimilarMovie/${encodeURIComponent(JSON.stringify(similer))}`)
+        const resSimilar = await axios.get(`/api/v1/moive/getSimilarMovie/${encodeURIComponent(JSON.stringify(similer))}`)
         console.log("resSimilar", resSimilar)
         setSimiResponse(resSimilar?.data)
     } catch (error) {
