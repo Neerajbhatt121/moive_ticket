@@ -63,7 +63,9 @@ io.on("connection", (socket) => {
 connectDB();
 
 // middleware
-app.use(cors({ origin: "https://moive-ticket.onrender.com", credentials: true }))
+app.use(cors({ origin: "https://moive-ticket.onrender.com",
+  origin: 'http://localhost:5173/',
+  credentials: true }))
 app.use(express.json())
 app.use(morgan('dev'))
 
