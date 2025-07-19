@@ -19,9 +19,10 @@ const Homepage = () => {
   const getMoive = async () => {
     try {
       console.log("page  ...." , page)
-      const res = await axios.get(`${import.meta.env.BASE_URL_API_URL}/api/v1/moive/getAllmoives/${page}`)
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getAllmoives/${page}`)
       setMovie(prev => [...prev, ...res.data.movie])
       setIsloading(false)
+      console.log(`ENV......... import.meta.env.BASE_URL_API_UR`,import.meta.env.VITE_BASE_URL_API_URL)
     } catch (error) {
       console.log(error)
     }
@@ -30,7 +31,7 @@ const Homepage = () => {
   const getMoiveLatest = async () => {
     try {
       console.log("page  ...." , page)
-      const res = await axios.get(`${import.meta.env.BASE_URL_API_URL}/api/v1/moive/getAllmoivesLatest`)
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getAllmoivesLatest`)
       setMovieLates(res.data.movie)
       setIsloading(false)
     } catch (error) {
