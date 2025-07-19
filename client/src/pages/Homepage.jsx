@@ -19,7 +19,7 @@ const Homepage = () => {
   const getMoive = async () => {
     try {
       console.log("page  ...." , page)
-      const res = await axios.get(`https://moive-ticket-1.onrender.com/api/v1/moive/getAllmoives/${page}`)
+      const res = await axios.get(`${import.meta.env.BASE_URL_API_URL}/api/v1/moive/getAllmoives/${page}`)
       setMovie(prev => [...prev, ...res.data.movie])
       setIsloading(false)
     } catch (error) {
@@ -30,7 +30,7 @@ const Homepage = () => {
   const getMoiveLatest = async () => {
     try {
       console.log("page  ...." , page)
-      const res = await axios.get(`https://moive-ticket-1.onrender.com/api/v1/moive/getAllmoivesLatest`)
+      const res = await axios.get(`${import.meta.env.BASE_URL_API_URL}/api/v1/moive/getAllmoivesLatest`)
       setMovieLates(res.data.movie)
       setIsloading(false)
     } catch (error) {
