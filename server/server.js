@@ -23,8 +23,9 @@ const app = express();
 const server = createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: 'https://moive-ticket.onrender.com',
-        origin: 'http://localhost:5173/',
+        origin: [
+        "https://moive-ticket.onrender.com",
+        'http://localhost:5173/',],
         methods: ['GET', 'POST'],
         credentials: true 
     }
@@ -63,9 +64,11 @@ io.on("connection", (socket) => {
 connectDB();
 
 // middleware
-app.use(cors({ origin: "https://moive-ticket.onrender.com",
-  origin: 'http://localhost:5173/',
-  credentials: true }))
+app.use(cors({ origin: [
+    "https://moive-ticket.onrender.com",
+    'http://localhost:5173/',
+],
+credentials: true }))
 app.use(express.json())
 app.use(morgan('dev'))
 
