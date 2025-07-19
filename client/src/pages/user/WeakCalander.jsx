@@ -30,7 +30,7 @@ const WeakCalender  = () => {
   const getDetails = async () => {
     try {
       const response = await axios.get(
-        `/api/v1/moive/getMovieById/${movId ? movId : null}`,
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getMovieById/${movId ? movId : null}`,
       );
       // console.log("data here", response.data)
       setResMov(response.data.movie);
@@ -93,7 +93,7 @@ const WeakCalender  = () => {
       const date = dates[instaceDate];
       console.log("movid" , date.toISOString().split("T")[0], instaceSlot)
       const instance = await axios.get(
-        `/api/v1/instance/getInstanceDate&Time/${instaceSlot}/${
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstanceDate&Time/${instaceSlot}/${
           date.toISOString().split("T")[0]
         }`
       );
@@ -126,7 +126,7 @@ const WeakCalender  = () => {
         return;
       }
       const book = await axios.post(
-        "/api/v1/instance/bookMovie",
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/bookMovie`,
         {
           showId: showId,
           seatNumber: seatnumber,

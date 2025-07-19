@@ -30,7 +30,7 @@ const SeatBooking = () => {
   const getDetails = async () => {
     try {
       const response = await axios.get(
-        `/api/v1/moive/getMovieById/${movId}`
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getMovieById/${movId}`
       )
       setResMov(response.data.movie)
       console.log(resMov)
@@ -92,7 +92,7 @@ const SeatBooking = () => {
       // const mMdate = Mdate? Mdate : [instaceSlotIdx]
       console.log("movid,.........", movId, date, instaceSlot)
       const instance = await axios.get(
-        `/api/v1/instance/getInstance/${date}/${movId}/${slot}`
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstance/${date}/${movId}/${slot}`
       )
       console.log("Curr instance ", instance?.data?.instance)
       setInstanceRes(instance?.data?.instance[0])
@@ -123,7 +123,7 @@ const SeatBooking = () => {
         return
       }
       const book = await axios.post(
-        "/api/v1/instance/bookMovie",
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/bookMovie`,
         {
           showId: showId,
           seatNumber: seatnumber,
@@ -140,7 +140,7 @@ const SeatBooking = () => {
   const GettingInstanceAll = async () => {
     try {
       console.log("movid", movId)
-      const instance = await axios.get(`/api/v1/instance/getInstance/${movId}`)
+      const instance = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstance/${movId}`)
       console.log("Curr instance Allllll", instance?.data?.instance)
       setInstanceList(instance?.data?.instance)
     } catch (error) {

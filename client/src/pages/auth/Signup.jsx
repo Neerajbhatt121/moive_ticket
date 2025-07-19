@@ -25,7 +25,7 @@ const Signup = () => {
       console.log("password required"),
       toast.error("name requred")
     )
-      const data = await axios.post('/api/v1/auth/register', {
+      const data = await axios.post(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/auth/register`, {
         name, email, password
       })
       console.log("register", data)
