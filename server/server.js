@@ -17,6 +17,7 @@ import "./config/passport.js";
 import authRoutes from "./routes/authRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
+console.log("URL here .....>>>>>", import.meta.url)
 const __dirname = dirname(__filename);
 
 dotenv.config();
@@ -70,11 +71,11 @@ connectDB();
 
 // middleware
 app.use(cors({ 
-//   origin: [
-//     "https://moive-ticket.onrender.com",
-//     'http://localhost:5173/',
-// ],
-origin: '*',
+  origin: [
+    "https://moive-ticket.onrender.com",
+    'http://localhost:5173/',
+],
+//origin: '*',
 credentials: true }))
 app.use(express.json())
 app.use(morgan('dev'))
@@ -108,11 +109,10 @@ app.get("/google", (req, res) => {
 const port = process.env.PORT || 8080
 
 const clientBuildPath = path.resolve(__dirname, "../client/dist");
-
 app.use(express.static(clientBuildPath));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(clientBuildPath, "index.html"));
+app.get('/{*splat}', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
 server.listen(port, ()=> {
