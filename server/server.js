@@ -110,8 +110,9 @@ const port = process.env.PORT || 8080
 
 const clientBuildPath = path.resolve(__dirname, "../client/dist");
 app.use(express.static(clientBuildPath));
+console.log(",..........", clientBuildPath)
 
-app.get('/{*splat}', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
