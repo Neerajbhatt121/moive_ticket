@@ -17,7 +17,7 @@ const MoiveDetails = () => {
     try {
       console.log(movId)
       const response = await axios.get(
-        `/api/v1/moive/getMovieById/${movId}`
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getMovieById/${movId}`
       )
       console.log("data here", response.data.movie.posterURL)
       setResMov(response.data.movie)
