@@ -17,7 +17,6 @@ import "./config/passport.js";
 import authRoutes from "./routes/authRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
-console.log("URL here .....>>>>>", import.meta.url)
 const __dirname = dirname(__filename);
 
 dotenv.config();
@@ -108,7 +107,7 @@ app.get("/google", (req, res) => {
 
 const port = process.env.PORT || 8080
 
-const clientBuildPath = path.resolve(__dirname, "../client/dist");
+const clientBuildPath = path.resolve(__dirname, '../client/dist');
 app.use(express.static(clientBuildPath));
 
 app.get('*', (req, res) => {

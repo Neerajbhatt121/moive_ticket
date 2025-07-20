@@ -13,7 +13,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "https://moive-ticket-1.onrender.com/api/v1/auth/google/callback",
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done, res) => {
       console.log("Google Profile:", profile);
       try {
         const existingUser = await user.findOne({ googleId: profile.id });

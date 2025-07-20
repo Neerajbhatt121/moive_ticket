@@ -31,8 +31,6 @@ const App = () => {
           <Route path='/weakCalender' element={<WeakCalender/>}/>
           <Route path='/tickets' element={<Tickets/>}/>
           
-
-
           <Route element={<LayoutAdmin/>}>
             <Route path='/AdminPanel' element={<AdminPanel/>}/>
             <Route path='/dashboard' element={<AdminDashboard/>}/>

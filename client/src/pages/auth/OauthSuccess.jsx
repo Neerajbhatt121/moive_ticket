@@ -14,10 +14,13 @@ const OauthSuccess = () => {
         const profilePic = searchParms.get('profilePic')
 
         if(token !== null){
-            const user = {name, email, profilePic};
-
-            setAuth({user, token})
-            localStorage.setItem('movie-auth', JSON.stringify({user, token}))
+            const stored = localStorage.getItem('movie-auth');
+            if(!stored){
+                const user = {name, email, profilePic};
+                setAuth({user, token})
+                localStorage.setItem('movie-auth', JSON.stringify({user, token}))
+                localStorage.setItem('oauth-done', true);
+            }
             console.log("auth localStorage here",localStorage.getItem('movie-auth'))
             navigate('/')
 
