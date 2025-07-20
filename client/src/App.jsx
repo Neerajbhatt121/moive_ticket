@@ -43,6 +43,7 @@ const App = () => {
             </Route>
 
           </Route>
+          <Route path="*" element={<h1>404 - Page Not Found hehehehehe</h1>} />
         </Routes>
     </BrowserRouter>
   )

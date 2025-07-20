@@ -31,7 +31,7 @@ router.get(
    // const token = user.token
     console.log("HERRRRRRRRRRRR", user)
     
-    const redirectURL = `http://localhost:5173/oauth-success?token=${token}&name=${encodeURIComponent(user.name)}&email=${user.email}&profilePic=${user.profilePic}`;
+    const redirectURL = `https://moive-ticket.onrender.com/oauth-success?token=${token}&name=${encodeURIComponent(user.name)}&email=${user.email}&profilePic=${user.profilePic}`;
 
     return res.redirect(redirectURL)
 
