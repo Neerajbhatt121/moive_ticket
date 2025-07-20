@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import LayoutAdmin from './Components/LayoutAdmin'
 import AddMovies from './pages/Admin/AddMovies'
@@ -18,7 +18,7 @@ import WeakCalender from './pages/user/WeakCalander'
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
         <Routes>
           <Route path='/' element={<Homepage/>}/>
           <Route path='/Signup' element={<Signup/>}/>
@@ -45,7 +45,7 @@ const App = () => {
           </Route>
           <Route path="*" element={<h1>404 - Page Not Found hehehehehe</h1>} />
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

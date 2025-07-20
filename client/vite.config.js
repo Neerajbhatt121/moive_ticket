@@ -9,12 +9,12 @@ export default defineConfig({
   ],
   server: {
   proxy: {
-      '/api': {
-        target: 'https://moive-ticket-1.onrender.com',
-        changeOrigin: true,
-        secure: true, // set to false if using HTTP or invalid cert
-        rewrite: (path) => path.replace(/^\/api/, '/api'),
-      }
+      // '/api': {
+      //   target: 'https://moive-ticket-1.onrender.com',
+      //   changeOrigin: true,
+      //   secure: true, // set to false if using HTTP or invalid cert
+      //   rewrite: (path) => path.replace(/^\/api/, '/api'),
+      // }
     }
 }
 
