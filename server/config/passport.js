@@ -20,27 +20,27 @@ passport.use(
           return done(null, existingUser);
         }
 
-        // const newUser = await user.create({
-        //   googleId: profile.id,
-        //   name: profile.displayName,
-        //   email: profile.emails[0].value,
-        //   profilePic: profile?.photos[0].value,
-        //   provider: "google",
-        // });
+        const newUser = await user.create({
+          googleId: profile.id,
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          profilePic: profile?.photos[0].value,
+          provider: "google",
+        });
 
-        // const token = await jwt.sign(
-        //   { _id: newUser._id },
-        //   process.env.JWT_SECRET,
-        //   { expiresIn: "7d" },
-        // );
+        const token = await jwt.sign(
+          { _id: newUser._id },
+          process.env.JWT_SECRET,
+          { expiresIn: "7d" },
+        );
 
-        // newUser.token = token;
-        // await newUser.save()
-        // if (!user || !token) {
-        //  // return res.status(400).send("User or token missing");
-        // }
+        newUser.token = token;
+        await newUser.save()
+        if (!user || !token) {
+         // return res.status(400).send("User or token missing");
+        }
 
-        // console.log("server token", token)
+        console.log("server token", token)
 
         return done(null, newUser);
       } catch (error) {

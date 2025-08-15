@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/Auth';
@@ -18,6 +19,7 @@ const OauthSuccess = () => {
             if(!stored){
                 const user = {name, email, profilePic};
                 setAuth({user, token})
+                axios.defaults.headers.common["Authorization"] = token;
                 localStorage.setItem('movie-auth', JSON.stringify({user, token}))
                 localStorage.setItem('oauth-done', true);
             }
