@@ -28,7 +28,7 @@ const OauthSuccess = () => {
         
                 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
            
-           // setTimeout(() => navigate('/'), 100);
+            setTimeout(() => navigate('/'), 100);
 
         } else{
             navigate('/Login')
