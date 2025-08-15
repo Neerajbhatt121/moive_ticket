@@ -20,6 +20,9 @@ passport.use(
           return done(null, existingUser);
         }
 
+
+        const userByEmail = await user.findOne({ email: profile.emails[0].value });
+
         const newUser = await user.create({
           googleId: profile.id,
           name: profile.displayName,
@@ -34,11 +37,12 @@ passport.use(
           { expiresIn: "7d" },
         );
 
-        newUser.token = token;
-        await newUser.save()
+        //newUser.token = token;
+        // await newUser.save()
         if (!user || !token) {
          // return res.status(400).send("User or token missing");
         }
+        
 
         console.log("server token", token)
 

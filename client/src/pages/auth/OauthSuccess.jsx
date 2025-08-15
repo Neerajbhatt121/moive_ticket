@@ -14,7 +14,6 @@ const OauthSuccess = () => {
         const name = searchParms.get('name')
         const profilePic = searchParms.get('profilePic')
 
-        console.log("00000|||||||00000000 ", token, email, name, profilePic)
 
         if(token ){
            
