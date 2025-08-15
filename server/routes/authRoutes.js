@@ -24,7 +24,7 @@ router.get(
 
   (req, res) => {
     if (!req.user) {
-      console.log("❌ No user from Google OAuth");
+      console.log(" No user from Google OAuth");
       return res.redirect('/login');
     }
     const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {

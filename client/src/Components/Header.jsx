@@ -25,6 +25,8 @@ const Header = () => {
     navigate('/Login')
   }
 
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",auth)
+
   return (
     <div
       className={`${
