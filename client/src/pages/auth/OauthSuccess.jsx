@@ -14,17 +14,21 @@ const OauthSuccess = () => {
         const name = searchParms.get('name')
         const profilePic = searchParms.get('profilePic')
 
-        if(token !== null){
+        console.log("00000|||||||00000000 ", token, email, name, profilePic)
+
+        if(token ){
             const stored = localStorage.getItem('movie-auth');
             if(!stored){
                 const user = {name, email, profilePic};
                 setAuth({user, token})
+                console.log({user, token}, "-->>>>> HERE LOOK FOR OAUTH <<<<<--")
                 axios.defaults.headers.common["Authorization"] = token;
+                console.log(axios.defaults.headers.common["Authorization"])
                 localStorage.setItem('movie-auth', JSON.stringify({user, token}))
                 localStorage.setItem('oauth-done', true);
             }
             console.log("auth localStorage here",localStorage.getItem('movie-auth'))
-            navigate('/')
+            setTimeout(() => navigate('/'), 100);
 
         } else{
             navigate('/Login')
