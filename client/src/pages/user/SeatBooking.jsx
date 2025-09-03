@@ -156,7 +156,7 @@ const SeatBooking = () => {
     <div
       className={` ${
         theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
-      }  h-auto w-screen p-2 sm:p-4 flex items-center justify-center `}
+      }  h-[100vh] w-screen p-2 sm:p-4 flex items-center justify-center `}
     >
       <Toaster />
       <div
@@ -264,7 +264,7 @@ const SeatBooking = () => {
                               handleSeatClick(index, s.seatNumber)
                             }
                         }}
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md cursor-pointer text-center
+                        className={`w-6 h-6 sm:w-8 sm:h-8 rounded-md cursor-pointer text-center
                             ${
                               booked[index].isBooked
                                 ? "border-2 border-red-400 text-red-400 cursor-not-allowed"
