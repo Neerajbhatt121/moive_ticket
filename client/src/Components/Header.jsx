@@ -25,7 +25,6 @@ const Header = () => {
     navigate('/Login')
   }
 
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",auth)
 
   return (
     <div
@@ -33,7 +32,7 @@ const Header = () => {
         theme === "night" ? "bg-black text-white " : "bg-white text-black "
       }  w-full h-[4rem] flex justify-between p-2 overflow-x-hidden items-center `}
     >
-      <div className='w-auto' 
+      <div className='w-auto text-red-600' 
         onClick={()=> navigate('/')}
       >TEXMIX</div>
 

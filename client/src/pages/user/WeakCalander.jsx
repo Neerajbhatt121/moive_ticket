@@ -284,7 +284,7 @@ const WeakCalender  = () => {
                             handleSeatClick(index, booked[index].seatNumber);
                           }
                         }}
-                        className={`w-6 h-6 sm:w-8 sm:h-8 rounded-md cursor-pointer text-center 
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md cursor-pointer text-center 
                             ${
                               booked[index].isBooked
                                 ? "border-2 border-red-400 text-red-400 cursor-not-allowed"
@@ -308,7 +308,7 @@ const WeakCalender  = () => {
                       className="w-8 h-8 bg-gray-300 rounded-md animate-pulse"
                       ></div>
                       )) : 
-                      <p className="w-[80vw] bg-red-500">Not Found Instance</p>
+                      <p className="w-[80vw] bg-gray-300">   Sorrry We Are Closed </p>
                 )} 
               </div>
             </div>
