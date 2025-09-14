@@ -156,13 +156,13 @@ const SeatBooking = () => {
     <div
       className={` ${
         theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
-      }  h-[100vh] w-screen p-2 sm:p-4 flex items-center justify-center `}
+      }  h-[100vh]  p-2 sm:p-4 flex items-center justify-center `}
     >
       <Toaster />
       <div
         className={`  ${
           theme === "night" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
-        } w-full h-[9%] flex flex-col justify-evenly items-center  rounded-2xl shadow-2xl shadow-black`}
+        } w-full h-[95%] flex flex-col justify-evenly items-center  rounded-2xl shadow-2xl shadow-black`}
       >
         <div
           className={`${

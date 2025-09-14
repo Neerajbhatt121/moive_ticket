@@ -150,7 +150,7 @@ const WeakCalender  = () => {
   return (
     <div
       className={` ${
-        theme === "night" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
+        theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
       } h-[100vh] p-4 flex items-center justify-center `}
     >
        <Toaster/>
