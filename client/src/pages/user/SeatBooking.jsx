@@ -300,7 +300,7 @@ const SeatBooking = () => {
                 theme === "night"
                   ? " border-purple-500 text-purple-500 bg-gray-950"
                   : " bg-purple-600 text-white"
-              } w-80 h-10 border-1 text-center p-1 md:mx-35  rounded-xl   -top-10 hover:bg-black `}
+              } w-80 h-10 border-1 text-center p-1 md:mx-35  rounded-xl -top-10 hover:bg-purple-500 `}
             >
               Proceed to Payment
             </div>
