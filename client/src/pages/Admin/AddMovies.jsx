@@ -26,7 +26,7 @@ const AddMovies = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/createmoive`,
+        "/api/v1/moive/createmoive",
         formData
       )
       console.log("api called")
