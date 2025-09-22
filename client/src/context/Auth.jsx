@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
     try {
       console.log("started here", userData)
       const response = await axios.post(
-        `/api/v1/auth/login`,
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/auth/login`,
         {
           email: userData.email,
           password: userData.password,

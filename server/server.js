@@ -6,14 +6,18 @@ import session from "express-session";
 import { createServer } from 'http';
 import morgan from 'morgan';
 import passport from 'passport';
-import path from 'path';
+import path, { dirname } from 'path';
 import { Server } from 'socket.io';
+import { fileURLToPath } from 'url';
 import instanceRoutes from '../server/routes/instanceRoutes.js';
 import moiveRoutes from "../server/routes/moiveRoutes.js";
 import ticketsRoutes from '../server/routes/ticketsRoutes.js';
 import { connectDB } from './config/db.js';
 import "./config/passport.js";
 import authRoutes from "./routes/authRoutes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 
@@ -23,7 +27,10 @@ const app = express();
 const server = createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:5173',
+        origin: [
+        "https://moive-ticket.onrender.com",
+        'http://localhost:5173/',],
+       // origin: '*',
         methods: ['GET', 'POST'],
         credentials: true 
     }
@@ -62,7 +69,13 @@ io.on("connection", (socket) => {
 connectDB();
 
 // middleware
-app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+app.use(cors({ 
+  origin: [
+    "https://moive-ticket.onrender.com",
+    'http://localhost:5173/',
+],
+//origin: '*',
+credentials: true }))
 app.use(express.json())
 app.use(morgan('dev'))
 
@@ -93,6 +106,13 @@ app.get("/google", (req, res) => {
   });
 
 const port = process.env.PORT || 8080
+
+const clientBuildPath = path.resolve(__dirname, '../client/dist');
+app.use(express.static(clientBuildPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
 
 server.listen(port, ()=> {
     console.log(chalk.bgYellow.bold(`Server started on ${port}`))

@@ -30,7 +30,7 @@ const WeakCalender  = () => {
   const getDetails = async () => {
     try {
       const response = await axios.get(
-        `/api/v1/moive/getMovieById/${movId ? movId : null}`,
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getMovieById/${movId ? movId : null}`,
       );
       // console.log("data here", response.data)
       setResMov(response.data.movie);
@@ -93,7 +93,7 @@ const WeakCalender  = () => {
       const date = dates[instaceDate];
       console.log("movid" , date.toISOString().split("T")[0], instaceSlot)
       const instance = await axios.get(
-        `/api/v1/instance/getInstanceDate&Time/${instaceSlot}/${
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstanceDate&Time/${instaceSlot}/${
           date.toISOString().split("T")[0]
         }`
       );
@@ -126,7 +126,7 @@ const WeakCalender  = () => {
         return;
       }
       const book = await axios.post(
-        "/api/v1/instance/bookMovie",
+        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/bookMovie`,
         {
           showId: showId,
           seatNumber: seatnumber,
@@ -150,19 +150,19 @@ const WeakCalender  = () => {
   return (
     <div
       className={` ${
-        theme === "night" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+        theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
       } h-[100vh] p-4 flex items-center justify-center `}
     >
        <Toaster/>
       <div
         className={`  ${
-          theme === "night" ? "bg-black text-white" : "bg-gray-100 text-black"
+          theme === "night" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
         } w-full h-[95%] flex flex-col justify-evenly items-center  rounded-2xl shadow-2xl shadow-black`}
       >
         <div
           className={`${
-            theme === "night" ? " text-white" : " text-black"
-          } text-3xl `}
+            theme === "night" ? " text-gray-100" : " text-black"
+          } text-2xl `}
         >
           🎥 Choose the Date:
         </div>
@@ -174,7 +174,7 @@ const WeakCalender  = () => {
                 ${
                   theme === "light"
                     ? i === instaceDate
-                      ? "bg-purple-400 text-white"
+                      ? "bg-purple-400 text-gray-100"
                       : "bg-gray-100 shadow-2xl"
                     : i === instaceDate
                       ? "border-purple-400 border-2 text-purple-500"
@@ -194,7 +194,7 @@ const WeakCalender  = () => {
 
         <div className="w-full flex flex-col flex-wrap items-center  gap-5 ">
           <div className="">
-            <span>
+            <span className="text-gray-100">
               show timing :-{instanceRes?.slotTime ? instanceRes?.slotTime : "No instnce found"} 
             </span>
             <div className="w-full flex justify-center">
@@ -205,7 +205,7 @@ const WeakCalender  = () => {
                 ${
                   theme === "light"
                     ? i == instaceSlotIdx
-                      ? "bg-purple-400 text-white"
+                      ? "bg-purple-400 text-gray-100"
                       : "bg-gray-100 shadow-2xl"
                     : i == instaceSlotIdx
                       ? "border-purple-400 border-2 text-purple-500"
@@ -284,7 +284,7 @@ const WeakCalender  = () => {
                             handleSeatClick(index, booked[index].seatNumber);
                           }
                         }}
-                        className={`w-8 h-8 rounded-md cursor-pointer text-center 
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md cursor-pointer text-center 
                             ${
                               booked[index].isBooked
                                 ? "border-2 border-red-400 text-red-400 cursor-not-allowed"
@@ -308,7 +308,7 @@ const WeakCalender  = () => {
                       className="w-8 h-8 bg-gray-300 rounded-md animate-pulse"
                       ></div>
                       )) : 
-                      <p className="w-[80vw] bg-red-500">Not Found Instance</p>
+                      <p className="w-[80vw] bg-gray-300">   Sorrry We Are Closed </p>
                 )} 
               </div>
             </div>

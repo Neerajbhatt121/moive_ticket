@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Toaster } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import HeroSection from "../Components/HeroSection"
+import HomepageSkeleton from "../Components/HomepageSkeleton"
 import Layout from "../Components/Layout"
 import { useTheme } from "../context/Theme"
 import '../index.css'
@@ -19,9 +20,10 @@ const Homepage = () => {
   const getMoive = async () => {
     try {
       console.log("page  ...." , page)
-      const res = await axios.get(`/api/v1/moive/getAllmoives/${page}`)
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getAllmoives/${page}`)
       setMovie(prev => [...prev, ...res.data.movie])
       setIsloading(false)
+      console.log(`ENV......... import.meta.env.BASE_URL_API_UR`,import.meta.env.VITE_BASE_URL_API_URL)
     } catch (error) {
       console.log(error)
     }
@@ -30,7 +32,7 @@ const Homepage = () => {
   const getMoiveLatest = async () => {
     try {
       console.log("page  ...." , page)
-      const res = await axios.get(`/api/v1/moive/getAllmoivesLatest`)
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getAllmoivesLatest`)
       setMovieLates(res.data.movie)
       setIsloading(false)
     } catch (error) {
@@ -79,7 +81,7 @@ const Homepage = () => {
         <HeroSection />
         <CurrentShows/>
 
-        {movie.length > 0 && (
+        {movie.length > 0 ? (
           <div
             className={`${
               theme === "night"
@@ -113,9 +115,12 @@ const Homepage = () => {
                 </div>
               ))}
             </div>
-            
           </div>
-        )}
+
+        ) : (
+            <HomepageSkeleton/>
+        ) 
+        }
 
         <div className='mb-5 text-1xl  sm:text-2xl font-sans font-bold ml-5 bg-transparent -top-5 z-99'>
           Recommended

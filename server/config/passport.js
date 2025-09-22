@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
 import passport from "passport";
 import pkg from 'passport-google-oauth20';
 import user from "../modal/User.js";
@@ -21,11 +20,14 @@ passport.use(
           return done(null, existingUser);
         }
 
+
+        const userByEmail = await user.findOne({ email: profile.emails[0].value });
+
         const newUser = await user.create({
           googleId: profile.id,
           name: profile.displayName,
           email: profile.emails[0].value,
-          profilePic: profile.photos[0].value,
+          profilePic: profile?.photos[0].value,
           provider: "google",
         });
 
@@ -35,10 +37,12 @@ passport.use(
           { expiresIn: "7d" },
         );
 
-        newUser.token = token;
+        //newUser.token = token;
+        // await newUser.save()
         if (!user || !token) {
-          return res.status(400).send("User or token missing");
+         // return res.status(400).send("User or token missing");
         }
+        
 
         console.log("server token", token)
 
