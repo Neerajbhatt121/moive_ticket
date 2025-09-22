@@ -12,7 +12,7 @@ const Tickets = () => {
   const getUserId = async () => {
     try {
       console.log(`"RESPONSE..........>", ${auth?.user?.email}`)
-      const uId = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/auth/findBymail/${auth?.user?.email}`)
+      const uId = await axios.get(`/api/v1/auth/findBymail/${auth?.user?.email}`)
       console.log("uid", uId?.data?.response[0]._id)
       setUserId(uId?.data?.response[0]._id)
     } catch (error) {
@@ -23,7 +23,7 @@ const Tickets = () => {
   const GetTickets = async () => {
     try {
       // console.log("RESPONSE.........." , auth?.user?.email) // 67f760e68d132c463829b458
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/tickets/ticketAll/${UserId}`)
+      const response = await axios.get(`/api/v1/tickets/ticketAll/${UserId}`)
       if(response){
         console.log(response?.data?.tickets)
       }

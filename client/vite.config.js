@@ -7,10 +7,9 @@ export default defineConfig({
   plugins: [react(),
     tailwindcss(),
   ],
-  base: '/',
   server: {
-  build: {
-    outDir: 'dist',
+  proxy: {
+    '/api': 'https://moive-ticket-1.onrender.com',
   },
 }
 

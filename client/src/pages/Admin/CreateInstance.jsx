@@ -21,7 +21,7 @@ const CreateInstance = () => {
   const getMoive = async () => {
     try {
       setIsLoading(true)
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getAllmoives/${page}`)
+      const res = await axios.get(`/api/v1/moive/getAllmoives/${page}`)
       setMovies((prev) => [...prev, ...res.data.movie])
       console.log(res.data.movie)
       console.log(movies)
@@ -52,7 +52,7 @@ const CreateInstance = () => {
     )
 
     const preInsanse = await axios.get(
-      `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstance/${
+      `http://localhost:5000/api/v1/instance/getInstance/${
         date.toISOString().split("T")[0]
       }/${seletedMovie.value}/${slotetime}`
     )
@@ -64,7 +64,7 @@ const CreateInstance = () => {
     }
 
     const instance = await axios.post(
-      `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/createInstance`,
+      `/api/v1/instance/createInstance`,
       {
         movie: seletedMovie.value,
         date: date.toISOString().split("T")[0],

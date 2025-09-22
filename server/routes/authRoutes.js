@@ -23,10 +23,6 @@ router.get(
   }),
 
   (req, res) => {
-    if (!req.user) {
-      console.log(" No user from Google OAuth");
-      return res.redirect('/login');
-    }
     const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d"
     });
@@ -35,10 +31,19 @@ router.get(
    // const token = user.token
     console.log("HERRRRRRRRRRRR", user)
     
-    const redirectURL = `https://moive-ticket.onrender.com/#/oauth-success?token=${token}&name=${encodeURIComponent(user.name)}&email=${user.email}&profilePic=${user.profilePic}`;
-    console.log("Redirecting to ..........",redirectURL)
+    const redirectURL = `http://localhost:5173/oauth-success?token=${token}&name=${encodeURIComponent(user.name)}&email=${user.email}&profilePic=${user.profilePic}`;
+
     return res.redirect(redirectURL)
 
+    // res.json({
+    //   message: "Login successful",
+    //   token: token,
+    //   user: {
+    //     name: req.user.name,
+    //     email: req.user.email,
+    //     profilePic: req.user.profilePic,
+    //   },
+    // });
   }
 );
 

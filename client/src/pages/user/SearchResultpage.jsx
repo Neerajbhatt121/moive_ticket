@@ -12,11 +12,12 @@ const SearchResultpage = () => {
     const {theme} = useTheme()
     const [similer] = useState([])
     const [resSimilar, setSimiResponse] = useState([])
+    console.log("hehekjher" , values.result)
 
   const getSimilar = async () => {
     console.log("similar", similer)
     try {
-        const resSimilar = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getSimilarMovie/${encodeURIComponent(JSON.stringify(similer))}`)
+        const resSimilar = await axios.get(`/api/v1/moive/getSimilarMovie/${encodeURIComponent(JSON.stringify(similer))}`)
         console.log("resSimilar", resSimilar)
         setSimiResponse(resSimilar?.data)
     } catch (error) {

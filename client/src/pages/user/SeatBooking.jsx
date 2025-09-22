@@ -30,7 +30,7 @@ const SeatBooking = () => {
   const getDetails = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/moive/getMovieById/${movId}`
+        `/api/v1/moive/getMovieById/${movId}`
       )
       setResMov(response.data.movie)
       console.log(resMov)
@@ -92,7 +92,7 @@ const SeatBooking = () => {
       // const mMdate = Mdate? Mdate : [instaceSlotIdx]
       console.log("movid,.........", movId, date, instaceSlot)
       const instance = await axios.get(
-        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstance/${date}/${movId}/${slot}`
+        `/api/v1/instance/getInstance/${date}/${movId}/${slot}`
       )
       console.log("Curr instance ", instance?.data?.instance)
       setInstanceRes(instance?.data?.instance[0])
@@ -123,7 +123,7 @@ const SeatBooking = () => {
         return
       }
       const book = await axios.post(
-        `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/bookMovie`,
+        "/api/v1/instance/bookMovie",
         {
           showId: showId,
           seatNumber: seatnumber,
@@ -140,7 +140,7 @@ const SeatBooking = () => {
   const GettingInstanceAll = async () => {
     try {
       console.log("movid", movId)
-      const instance = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstance/${movId}`)
+      const instance = await axios.get(`/api/v1/instance/getInstance/${movId}`)
       console.log("Curr instance Allllll", instance?.data?.instance)
       setInstanceList(instance?.data?.instance)
     } catch (error) {
@@ -156,13 +156,13 @@ const SeatBooking = () => {
     <div
       className={` ${
         theme === "night" ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
-      }  h-[100vh]  p-2 sm:p-4 flex items-center justify-center `}
+      }  h-auto w-screen p-2 sm:p-4 flex items-center justify-center `}
     >
       <Toaster />
       <div
         className={`  ${
           theme === "night" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
-        } w-full h-[95%] flex flex-col justify-evenly items-center  rounded-2xl shadow-2xl shadow-black`}
+        } w-full h-[90%] flex flex-col justify-evenly items-center  rounded-2xl shadow-2xl shadow-black`}
       >
         <div
           className={`${
@@ -300,7 +300,7 @@ const SeatBooking = () => {
                 theme === "night"
                   ? " border-purple-500 text-purple-500 bg-gray-950"
                   : " bg-purple-600 text-white"
-              } w-80 h-10 border-1 text-center p-1 md:mx-35  rounded-xl -top-10 hover:bg-purple-500 `}
+              } w-80 h-10 border-1 text-center p-1 md:mx-35  rounded-xl   -top-10 hover:bg-black `}
             >
               Proceed to Payment
             </div>

@@ -14,7 +14,7 @@ const CurrentShows = () => {
     const getCurrShows = async () => {
             try {
               console.log("Date ",date.toISOString().split("T")[0])
-                const response = await axios.get(`${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/instance/getInstanceWeak/${date.toISOString().split("T")[0]}`)
+                const response = await axios.get(`/api/v1/instance/getInstanceWeak/${date.toISOString().split("T")[0]}`)
                 console.log("current shows",response.data)
                 setCurrMov(response.data.filtered)
             } catch (error) {

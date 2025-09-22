@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/Auth';
@@ -14,20 +13,13 @@ const OauthSuccess = () => {
         const name = searchParms.get('name')
         const profilePic = searchParms.get('profilePic')
 
+        if(token !== null){
+            const user = {name, email, profilePic};
 
-        if(token ){
-           
-                const user = {name, email, profilePic};
-                setAuth({user, token})
-                console.log({user, token}, "-->>>>> HERE LOOK FOR OAUTH <<<<<--")
-                axios.defaults.headers.common["Authorization"] = token;
-                console.log(axios.defaults.headers.common["Authorization"])
-                localStorage.setItem('movie-auth', JSON.stringify({user, token}))
-                localStorage.setItem('oauth-done', true);
-        
-                axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-           
-            setTimeout(() => navigate('/'), 100);
+            setAuth({user, token})
+            localStorage.setItem('movie-auth', JSON.stringify({user, token}))
+            console.log("auth localStorage here",localStorage.getItem('movie-auth'))
+            navigate('/')
 
         } else{
             navigate('/Login')

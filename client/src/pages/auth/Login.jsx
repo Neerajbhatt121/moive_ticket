@@ -79,7 +79,7 @@ const Login = () => {
         <Link
           className="w-85 h-10 bg-black text-white flex items-center justify-center gap-2 rounded-2xl"
           to={
-           `${import.meta.env.VITE_BASE_URL_API_URL}/api/v1/auth/google`
+           "https://moive-ticket-1.onrender.com/api/v1/auth/google"
           }
         >
           <FcGoogle className="text-xl" />
